@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace Cloudito.Sdk;
 internal class Rest(IHttpClientFactory httpClientFactory) : IRest
