@@ -48,4 +48,29 @@ internal class JwtTokenGenerator
             return false;
         }
     }
+
+    public static Application? GetAppDate(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+
+        try
+        {
+            // Parse the token
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+
+            // Extract the user ID (assumes it's stored in the "sub" claim)
+            var id = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
+            var name = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Name)?.Value;
+
+            if (id is null)
+                return null;
+
+            _ = Guid.TryParse(id, out Guid appId);
+            return new(appId, name ?? "");
+        }
+        catch
+        {
+            return null;
+        }
+    }
 }
