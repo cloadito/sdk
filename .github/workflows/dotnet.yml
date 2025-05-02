@@ -1,0 +1,40 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger only when a tag starting with 'v' is pushed
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to get full tag history
+
+      - name: Extract version from tag
+        id: version
+        uses: damienaicheh/extract-version-from-tag-action@v1.3.0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.0'  
+
+      - name: Update package version
+        run: |
+          sed -i 's/<Version>.*<\/Version>/<Version>${{ steps.version.outputs.full_version }}<\/Version>/' Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj
+
+      - name: Restore dependencies
+        run: dotnet restore Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj
+
+      - name: Build project
+        run: dotnet build Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj --configuration Release --no-restore
+
+      - name: Pack NuGet package
+        run: dotnet pack Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj --configuration Release --output .
+
+      - name: Publish to NuGet
+        run: dotnet nuget push "*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
