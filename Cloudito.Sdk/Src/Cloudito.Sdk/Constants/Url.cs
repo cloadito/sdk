@@ -21,4 +21,14 @@ internal class UrlsConst
 
         public const string GetInventory = $"{V1BaseUrl}/wallet/get-inventory";
     }
+
+    public class Applicaitons
+    {
+
+    }
+
+    public class Ticket
+    {
+
+    }
 }
