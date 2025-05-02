@@ -2,9 +2,9 @@
 
 public interface IWallet
 {
-    Task<ApiModel<Wallet?>> GetUserWalletAsync(Guid userId);
+    Task<ServiceResult<Wallet?>> GetUserWalletAsync(Guid userId);
 
-    Task<ApiModel<WalletInventory?>> GetInventoryAsync(Guid userId);
+    Task<ServiceResult<WalletInventory?>> GetInventoryAsync(Guid userId);
 
-    Task<ApiModel<Wallet?>> InitAsync(Guid userId);
+    Task<ServiceResult<Wallet?>> InitAsync(Guid userId);
 }

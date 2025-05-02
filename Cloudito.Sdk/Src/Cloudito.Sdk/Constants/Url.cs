@@ -15,11 +15,11 @@ internal class UrlsConst
 
     public class Wallet
     {
-        public const string Init = $"{V1BaseUrl}/wallet/init";
+        public static Func<Guid, string> Init = (Guid userId) => $"{V1BaseUrl}/wallet/init?userId={userId}";
 
-        public const string GetUserWallet = $"{V1BaseUrl}/wallet/get-user-wallet";
+        public static Func<Guid, string> GetUserWallet = (Guid userId) => $"{V1BaseUrl}/wallet/get-user-wallet?userId={userId}";
 
-        public const string GetInventory = $"{V1BaseUrl}/wallet/get-inventory";
+        public static Func<Guid, string> GetInventory = (Guid userId) => $"{V1BaseUrl}/wallet/get-inventory?userId={userId}";
     }
 
     public class Applicaitons
