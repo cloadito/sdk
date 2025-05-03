@@ -41,4 +41,20 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
         outputHelper.WriteLine(wallet.Message);
         outputHelper.WriteLine(wallet.Result?.ToString());
     }
+
+    [Fact]
+    public async Task GetWalletInventory()
+    {
+        var wallet = await _wallet.GetInventoryAsync(_userId);
+
+        if (!wallet.Success)
+        {
+            Assert.Fail(wallet.Message);
+            return;
+        }
+
+        Assert.True(wallet.Success);
+        outputHelper.WriteLine(wallet.Message);
+        outputHelper.WriteLine(wallet.Result?.ToString());
+    }
 }
