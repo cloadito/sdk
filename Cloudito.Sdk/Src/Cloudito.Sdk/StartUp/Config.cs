@@ -25,6 +25,9 @@ public static class ClouditoSdkConfig
         //Wallet
         services.AddScoped<IWallet, WalletService>();
 
+        // App
+        services.AddScoped<IAppFinder, AppFinder>();
+
         return services;
     }
 }
