@@ -15,6 +15,19 @@ internal class WalletService(IRest rest) : IWallet
         }
     }
 
+    public async Task<ServiceResult<PaginationResult<WalletTransaction>>> GetTransactionsAsync(Guid walletId, int page, int count)
+    {
+        try
+        {
+            ApiModel < PaginationResult < WalletTransaction >>> wallet = await rest.GetAsync<PaginationResult<WalletTransaction>> ?> (UrlsConst.Wallet.GetUserWallet(userId));
+            return ServiceResult<Wallet?>.FromApi(wallet);
+        }
+        catch (Exception ex)
+        {
+            return ServiceResult<PaginationResult<WalletTransaction>?>.Error(ex.Message);
+        }
+    }
+
     public async Task<ServiceResult<Wallet?>> GetUserWalletAsync(Guid userId)
     {
         try
