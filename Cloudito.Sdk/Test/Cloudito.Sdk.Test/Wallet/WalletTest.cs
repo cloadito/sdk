@@ -104,4 +104,19 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
         outputHelper.WriteLine(find.Message);
         outputHelper.WriteLine(find.ToString());
     }
+
+    [Fact]
+    public async Task TransferToAppWallet()
+    {
+        var transfer = await _wallet.TransferToAppWalletAsync(null, _walletId, 10000, TransactionStatus.Complete);
+        if (!transfer.Success)
+        {
+            Assert.Fail(transfer.Message);
+            return;
+        }
+
+        Assert.True(transfer.Success);
+        outputHelper.WriteLine(transfer.Message);
+        outputHelper.WriteLine(transfer.ToString());
+    }
 }
