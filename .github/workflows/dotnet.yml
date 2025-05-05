@@ -14,9 +14,11 @@ jobs:
         with:
           fetch-depth: 0  # Required to get full tag history
 
-      - name: Extract version from tag
-        id: version
-        uses: damienaicheh/extract-version-from-tag-action@v1.3.0
+      - name: Extract version from tag 
+        id: extract_version 
+        run: | 
+          VERSION=$(echo ${GITHUB_REF#refs/tags/v-} | awk -F'-' '{print $NF}') 
+          echo "::set-output name=version::$VERSION"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -26,7 +28,7 @@ jobs:
 
       - name: Update package version
         run: |
-          sed -i 's/<Version>.*<\/Version>/<Version>${{ steps.version.outputs.full_version }}<\/Version>/' Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj
+          sed -i 's/<Version>.*<\/Version>/<Version>${{ steps.extract_version.outputs.version }}<\/Version>/' Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj
 
       - name: Restore dependencies
         run: dotnet restore Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj
