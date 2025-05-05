@@ -2,6 +2,19 @@
 
 internal class WalletService(IRest rest) : IWallet
 {
+    public async Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId)
+    {
+        try
+        {
+            ApiModel<WalletTransaction?> transactions = await rest.GetAsync<WalletTransaction?>(UrlsConst.Wallet.FindTransactionByUniqId(uniqId));
+            return ServiceResult<WalletTransaction?>.FromApi(transactions);
+        }
+        catch (Exception ex)
+        {
+            return ServiceResult<WalletTransaction?>.Error(ex.Message);
+        }
+    }
+
     public async Task<ServiceResult<WalletInventory?>> GetInventoryAsync(Guid userId)
     {
         try

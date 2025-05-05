@@ -23,4 +23,6 @@ public interface IWallet
     /// <param name="transaction">Instance of <see cref="WalletTransaction"/> if want insert new item id of instance most be null and for update set id of item you want update id</param>
     /// <returns>Instance of <see cref="WalletTransaction"/></returns>
     Task<ServiceResult<WalletTransaction>> UpsertTransactionAsync(WalletTransaction transaction);
+
+    Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId);
 }
