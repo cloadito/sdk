@@ -6,7 +6,7 @@ internal class WalletService(IRest rest) : IWallet
     {
         try
         {
-            ApiModel<WalletTransaction?> transactions = await rest.GetAsync<WalletTransaction?>(UrlsConst.Wallet.FindTransactionByUniqId(uniqId));
+            ApiModel<WalletTransaction?> transactions = await rest.GetAsync<WalletTransaction?>(UrlsConst.Wallet.FindTransactionByUniqId(uniqId, walletId));
             return ServiceResult<WalletTransaction?>.FromApi(transactions);
         }
         catch (Exception ex)

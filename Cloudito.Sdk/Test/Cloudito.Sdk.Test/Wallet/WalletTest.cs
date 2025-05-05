@@ -92,6 +92,15 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     [Fact]
     public async Task FindByUniqId()
     {
-        var find = await _wallet.FindByUniqIdAsync();
+        var find = await _wallet.FindByUniqIdAsync("57e39e8e-e8bb-4257-8a4c-cbb07b715789", _walletId);
+        if (!find.Success)
+        {
+            Assert.Fail(find.Message);
+            return;
+        }
+
+        Assert.True(find.Success);
+        outputHelper.WriteLine(find.Message);
+        outputHelper.WriteLine(find.ToString());
     }
 }
