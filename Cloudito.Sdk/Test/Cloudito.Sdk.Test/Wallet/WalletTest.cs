@@ -88,4 +88,10 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
         outputHelper.WriteLine(upsert.Message);
         outputHelper.WriteLine(upsert.ToString());
     }
+
+    [Fact]
+    public async Task FindByUniqId()
+    {
+        var find = await _wallet.FindByUniqIdAsync();
+    }
 }

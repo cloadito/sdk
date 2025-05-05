@@ -2,7 +2,7 @@
 
 internal class WalletService(IRest rest) : IWallet
 {
-    public async Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId)
+    public async Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId, Guid walletId)
     {
         try
         {

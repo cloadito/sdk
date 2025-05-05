@@ -24,5 +24,5 @@ public interface IWallet
     /// <returns>Instance of <see cref="WalletTransaction"/></returns>
     Task<ServiceResult<WalletTransaction>> UpsertTransactionAsync(WalletTransaction transaction);
 
-    Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId);
+    Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId, Guid walletId);
 }

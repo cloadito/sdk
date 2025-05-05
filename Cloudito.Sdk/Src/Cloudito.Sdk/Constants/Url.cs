@@ -24,7 +24,7 @@ internal class UrlsConst
 
         public static Func<Guid, int, int, string> GetWalletTransactions = (Guid walletId, int page, int count) => $"/wallet/transaction/get-transactions?walletId={walletId}&page={page}&count={count}";
 
-        public static Func<string, string> FindTransactionByUniqId = (string uniqId) => $"/wallet/transaction/find-by-uniqid?uniqId={uniqId}";
+        public static Func<string, Guid, string> FindTransactionByUniqId = (string uniqId, Guid walletId) => $"/wallet/transaction/find-by-uniqid?uniqId={uniqId}&walletId={walletId}";
 
         public const string UpsertTransaction = "/wallet/transaction/upsert";
 
