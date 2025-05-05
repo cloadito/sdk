@@ -77,7 +77,8 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     [Fact]
     public async Task UpsertTransaction()
     {
-        var upsert = await _wallet.UpsertTransactionAsync(new(null, _walletId, Guid.NewGuid().ToString(), 100000, TransactionType.Increment, TransactionStatus.Complete, null));
+        var upsert = await _wallet.UpsertTransactionAsync(new(null, _walletId, Guid.NewGuid().ToString(), 100000, TransactionType.Increment, TransactionStatus.Complete,
+            new(null, "Charge Wallet", [new("Authority", "res.Authority")])));
         if (!upsert.Success)
         {
             Assert.Fail(upsert.Message);
