@@ -67,6 +67,25 @@ internal class WalletService(IRest rest) : IWallet
         }
     }
 
+    public async Task<ServiceResult<WalletTransaction?>> TransferToAppWalletAsync(Guid? transactionId, Guid walletId, decimal amount, TransactionStatus status)
+    {
+        try
+        {
+            ApiModel<WalletTransaction?> transfer = await rest.PostAsync<WalletTransaction?>(UrlsConst.Wallet.TransferToAppWallet, new
+            {
+                transactionId,
+                walletId,
+                amount,
+                Status = (byte)status,
+            });
+            return ServiceResult<WalletTransaction?>.FromApi(transfer);
+        }
+        catch (Exception ex)
+        {
+            return ServiceResult<WalletTransaction?>.Error(ex.Message);
+        }
+    }
+
     public async Task<ServiceResult<WalletTransaction>> UpsertTransactionAsync(WalletTransaction transaction)
     {
         try

@@ -28,6 +28,8 @@ internal class UrlsConst
 
         public const string UpsertTransaction = "/wallet/transaction/upsert";
 
+        public const string TransferToAppWallet = "/wallet/transaction/transfer-to-app-wallet";
+
         public const string GetAppWallet = "/wallet/get-app-wallet";
     }
 

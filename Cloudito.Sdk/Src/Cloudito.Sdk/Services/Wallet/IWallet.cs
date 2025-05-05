@@ -25,4 +25,14 @@ public interface IWallet
     Task<ServiceResult<WalletTransaction>> UpsertTransactionAsync(WalletTransaction transaction);
 
     Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId, Guid walletId);
+
+    /// <summary>
+    /// Transfer from wallet to app wallet
+    /// </summary>
+    /// <param name="transactionId">if wanna update transaction fill this</param>
+    /// <param name="walletId">id of source wallet</param>
+    /// <param name="amount">transaction amount</param>
+    /// <param name="status">transaction status</param>
+    /// <returns>Instance of <see cref="WalletTransaction"/></returns>
+    Task<ServiceResult<WalletTransaction?>> TransferToAppWalletAsync(Guid? transactionId, Guid walletId, decimal amount, TransactionStatus status);
 }
