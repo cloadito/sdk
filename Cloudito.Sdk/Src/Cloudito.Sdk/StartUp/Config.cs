@@ -17,6 +17,7 @@ public static class ClouditoSdkConfig
             client.DefaultRequestHeaders.Add(Constants.HeaderKey, apiKey);
         });
         services.AddScoped<IRest, Rest>();
+        services.AddScoped<IBaseService, BaseService>();
 
         // Identity
         services.AddScoped<IUserFinder, UserFinder>();
