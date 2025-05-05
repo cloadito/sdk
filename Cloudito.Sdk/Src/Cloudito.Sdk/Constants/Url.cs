@@ -20,6 +20,12 @@ internal class UrlsConst
         public static Func<Guid, string> GetUserWallet = (Guid userId) => $"/wallet/get-user-wallet?userId={userId}";
 
         public static Func<Guid, string> GetInventory = (Guid userId) => $"/wallet/get-inventory?userId={userId}";
+
+        public static Func<Guid, int, int, string> GetWalletTransactions = (Guid walletId, int page, int count) => $"/wallet/transaction/get-transactions?walletId={walletId}&page={page}&count={count}";
+
+        public const string UpsertTransaction = "/wallet/transaction/upsert";
+
+        public const string GetAppWallet = "/wallet/get-app-wallet";
     }
 
     public class Applicaitons

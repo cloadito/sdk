@@ -16,4 +16,11 @@ public interface IWallet
     /// <param name="count">page size</param>
     /// <returns><see cref="PaginationResult{TResult}"/> Of <see cref="WalletTransaction"/> </returns>
     Task<ServiceResult<PaginationResult<WalletTransaction>>> GetTransactionsAsync(Guid walletId, int page, int count);
+
+    /// <summary>
+    /// Upsert transaction
+    /// </summary>
+    /// <param name="transaction">Instance of <see cref="WalletTransaction"/> if want insert new item id of instance most be null and for update set id of item you want update id</param>
+    /// <returns>Instance of <see cref="WalletTransaction"/></returns>
+    Task<ServiceResult<WalletTransaction>> UpsertTransactionAsync(WalletTransaction transaction);
 }

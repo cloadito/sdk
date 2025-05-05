@@ -19,12 +19,12 @@ internal class WalletService(IRest rest) : IWallet
     {
         try
         {
-            ApiModel < PaginationResult < WalletTransaction >>> wallet = await rest.GetAsync<PaginationResult<WalletTransaction>> ?> (UrlsConst.Wallet.GetUserWallet(userId));
-            return ServiceResult<Wallet?>.FromApi(wallet);
+            ApiModel<PaginationResult<WalletTransaction>> transactions = await rest.GetAsync<PaginationResult<WalletTransaction>>(UrlsConst.Wallet.GetWalletTransactions(walletId, page, count));
+            return ServiceResult<PaginationResult<WalletTransaction>>.FromApi(transactions);
         }
         catch (Exception ex)
         {
-            return ServiceResult<PaginationResult<WalletTransaction>?>.Error(ex.Message);
+            return ServiceResult<PaginationResult<WalletTransaction>>.Error(ex.Message);
         }
     }
 
@@ -51,6 +51,19 @@ internal class WalletService(IRest rest) : IWallet
         catch (Exception ex)
         {
             return ServiceResult<Wallet?>.Error(ex.Message);
+        }
+    }
+
+    public async Task<ServiceResult<WalletTransaction>> UpsertTransactionAsync(WalletTransaction transaction)
+    {
+        try
+        {
+            ApiModel<WalletTransaction> upsert = await rest.PostAsync<WalletTransaction>(UrlsConst.Wallet.UpsertTransaction, transaction);
+            return ServiceResult<WalletTransaction>.FromApi(upsert);
+        }
+        catch (Exception ex)
+        {
+            return ServiceResult<WalletTransaction>.Error(ex.Message);
         }
     }
 }
