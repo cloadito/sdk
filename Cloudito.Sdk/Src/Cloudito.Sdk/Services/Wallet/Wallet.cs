@@ -1,101 +1,35 @@
 ﻿namespace Cloudito.Sdk.Services;
 
-internal class WalletService(IRest rest) : IWallet
+internal class WalletService(IBaseService baseService) : IWallet
 {
     public async Task<ServiceResult<WalletTransaction?>> FindByUniqIdAsync(string uniqId, Guid walletId)
-    {
-        try
-        {
-            ApiModel<WalletTransaction?> transactions = await rest.GetAsync<WalletTransaction?>(UrlsConst.Wallet.FindTransactionByUniqId(uniqId, walletId));
-            return ServiceResult<WalletTransaction?>.FromApi(transactions);
-        }
-        catch (Exception ex)
-        {
-            return ServiceResult<WalletTransaction?>.Error(ex.Message);
-        }
-    }
+        => await baseService.CallServiceAsync<WalletTransaction?>(UrlsConst.Wallet.FindTransactionByUniqId(uniqId, walletId), null, HttpMethod.Get);
+
+    public async Task<ServiceResult<AppWallet?>> GetAppWalletAsync()
+    => await baseService.CallServiceAsync<AppWallet?>(UrlsConst.Wallet.GetAppWallet, null, HttpMethod.Get);
 
     public async Task<ServiceResult<WalletInventory?>> GetInventoryAsync(Guid userId)
-    {
-        try
-        {
-            ApiModel<WalletInventory?> wallet = await rest.GetAsync<WalletInventory?>(UrlsConst.Wallet.GetInventory(userId));
-            return ServiceResult<WalletInventory?>.FromApi(wallet);
-        }
-        catch (Exception ex)
-        {
-            return ServiceResult<WalletInventory?>.Error(ex.Message);
-        }
-    }
+        => await baseService.CallServiceAsync<WalletInventory?>(UrlsConst.Wallet.GetInventory(userId), null, HttpMethod.Get);
 
     public async Task<ServiceResult<PaginationResult<WalletTransaction>>> GetTransactionsAsync(Guid walletId, int page, int count)
-    {
-        try
-        {
-            ApiModel<PaginationResult<WalletTransaction>> transactions = await rest.GetAsync<PaginationResult<WalletTransaction>>(UrlsConst.Wallet.GetWalletTransactions(walletId, page, count));
-            return ServiceResult<PaginationResult<WalletTransaction>>.FromApi(transactions);
-        }
-        catch (Exception ex)
-        {
-            return ServiceResult<PaginationResult<WalletTransaction>>.Error(ex.Message);
-        }
-    }
+        => await baseService.CallServiceAsync<PaginationResult<WalletTransaction>>(UrlsConst.Wallet.GetWalletTransactions(walletId, page, count), null, HttpMethod.Get);
 
     public async Task<ServiceResult<Wallet?>> GetUserWalletAsync(Guid userId)
-    {
-        try
-        {
-            ApiModel<Wallet?> wallet = await rest.GetAsync<Wallet?>(UrlsConst.Wallet.GetUserWallet(userId));
-            return ServiceResult<Wallet?>.FromApi(wallet);
-        }
-        catch (Exception ex)
-        {
-            return ServiceResult<Wallet?>.Error(ex.Message);
-        }
-    }
+        => await baseService.CallServiceAsync<Wallet?>(UrlsConst.Wallet.GetUserWallet(userId), null, HttpMethod.Get);
 
     public async Task<ServiceResult<Wallet?>> InitAsync(Guid userId)
-    {
-        try
-        {
-            ApiModel<Wallet?> wallet = await rest.GetAsync<Wallet?>(UrlsConst.Wallet.Init(userId));
-            return ServiceResult<Wallet?>.FromApi(wallet);
-        }
-        catch (Exception ex)
-        {
-            return ServiceResult<Wallet?>.Error(ex.Message);
-        }
-    }
+        => await baseService.CallServiceAsync<Wallet?>(UrlsConst.Wallet.Init(userId), null, HttpMethod.Get);
 
     public async Task<ServiceResult<WalletTransaction?>> TransferToAppWalletAsync(Guid? transactionId, Guid walletId, decimal amount, TransactionStatus status)
-    {
-        try
+        => await baseService.CallServiceAsync<WalletTransaction?>(UrlsConst.Wallet.TransferToAppWallet, new
         {
-            ApiModel<WalletTransaction?> transfer = await rest.PostAsync<WalletTransaction?>(UrlsConst.Wallet.TransferToAppWallet, new
-            {
-                transactionId,
-                walletId,
-                amount,
-                Status = (byte)status,
-            });
-            return ServiceResult<WalletTransaction?>.FromApi(transfer);
-        }
-        catch (Exception ex)
-        {
-            return ServiceResult<WalletTransaction?>.Error(ex.Message);
-        }
-    }
+            transactionId,
+            walletId,
+            amount,
+            Status = (byte)status,
+        }, HttpMethod.Post);
 
     public async Task<ServiceResult<WalletTransaction>> UpsertTransactionAsync(WalletTransaction transaction)
-    {
-        try
-        {
-            ApiModel<WalletTransaction> upsert = await rest.PostAsync<WalletTransaction>(UrlsConst.Wallet.UpsertTransaction, transaction);
-            return ServiceResult<WalletTransaction>.FromApi(upsert);
-        }
-        catch (Exception ex)
-        {
-            return ServiceResult<WalletTransaction>.Error(ex.Message);
-        }
-    }
+        => await baseService.CallServiceAsync<WalletTransaction>(UrlsConst.Wallet.UpsertTransaction, transaction, HttpMethod.Post);
+
 }

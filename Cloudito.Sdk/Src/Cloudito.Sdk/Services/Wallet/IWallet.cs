@@ -35,4 +35,6 @@ public interface IWallet
     /// <param name="status">transaction status</param>
     /// <returns>Instance of <see cref="WalletTransaction"/></returns>
     Task<ServiceResult<WalletTransaction?>> TransferToAppWalletAsync(Guid? transactionId, Guid walletId, decimal amount, TransactionStatus status);
+
+    Task<ServiceResult<AppWallet?>> GetAppWalletAsync();
 }
