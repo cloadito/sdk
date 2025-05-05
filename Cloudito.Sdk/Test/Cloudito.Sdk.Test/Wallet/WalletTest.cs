@@ -121,17 +121,17 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     }
 
     [Fact]
-    public async Task GEtAppWallet()
+    public async Task GetAppWallet()
     {
-        var transfer = await _wallet.TransferToAppWalletAsync(null, _walletId, 10000, TransactionStatus.Complete);
-        if (!transfer.Success)
+        var wallet = await _wallet.GetAppWalletAsync();
+        if (!wallet.Success)
         {
-            Assert.Fail(transfer.Message);
+            Assert.Fail(wallet.Message);
             return;
         }
 
-        Assert.True(transfer.Success);
-        outputHelper.WriteLine(transfer.Message);
-        outputHelper.WriteLine(transfer.ToString());
+        Assert.True(wallet.Success);
+        outputHelper.WriteLine(wallet.Message);
+        outputHelper.WriteLine(wallet.ToString());
     }
 }
