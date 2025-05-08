@@ -48,9 +48,9 @@ internal class UrlsConst
 
         public const string UpsertMessage = "/ticket/message/upsert";
 
-        public static Func<Guid?, int, int, string> GetAppTickets = (Guid? departmentId, int page, int count) => $"/ticket/get-app-tickets?departmentId={departmentId}&page={page}&count={count}";
+        public static Func<Guid?, int, int, string> GetAppTickets = (Guid? departmentId, int page, int count) => $"/ticket/get-app-tickets?{(departmentId is null ? "" : $"departmentId={departmentId}&")}page={page}&count={count}";
 
-        public static Func<Guid, Guid?, int, int, string> GetUserTickets = (Guid userId, Guid? departmentId, int page, int count) => $"/ticket/get-user-tickets?userId={userId}&departmentId={departmentId}&page={page}&count={count}";
+        public static Func<Guid, Guid?, int, int, string> GetUserTickets = (Guid userId, Guid? departmentId, int page, int count) => $"/ticket/get-user-tickets?userId={userId}&{(departmentId is null ? "" : $"departmentId={departmentId}&")}page={page}&count={count}";
 
         public const string New = "/ticket/new";
     }
