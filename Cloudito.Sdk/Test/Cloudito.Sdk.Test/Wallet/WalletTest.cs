@@ -9,13 +9,10 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
 {
     private readonly IWallet _wallet = fixture.ServiceProvider.GetRequiredService<IWallet>();
 
-    private Guid _userId = Guid.Parse("bb0945d6-8172-4cd4-9db7-d80376bd9711");
-    private Guid _walletId = Guid.Parse("a90d5b73-b516-4901-8cf1-a999db468932");
-
     [Fact]
     public async Task InitWallet()
     {
-        var initWallet = await _wallet.InitAsync(_userId);
+        var initWallet = await _wallet.InitAsync(Constants.userId);
         if (!initWallet.Success)
         {
             Assert.Fail(initWallet.Message);
@@ -30,7 +27,7 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     [Fact]
     public async Task GetWallet()
     {
-        var wallet = await _wallet.GetUserWalletAsync(_userId);
+        var wallet = await _wallet.GetUserWalletAsync(Constants.userId);
 
         if (!wallet.Success)
         {
@@ -45,7 +42,7 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     [Fact]
     public async Task GetWalletInventory()
     {
-        var wallet = await _wallet.GetInventoryAsync(_userId);
+        var wallet = await _wallet.GetInventoryAsync(Constants.userId);
 
         if (!wallet.Success)
         {
@@ -62,7 +59,7 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     public async Task GetTransactions()
     {
 
-        ServiceResult<PaginationResult<WalletTransaction>> transactions = await _wallet.GetTransactionsAsync((Guid)_walletId, 0, 10);
+        ServiceResult<Pagination<WalletTransaction>> transactions = await _wallet.GetTransactionsAsync((Guid)Constants.walletId, 0, 10);
         if (!transactions.Success)
         {
             Assert.Fail(transactions.Message);
@@ -77,7 +74,7 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     [Fact]
     public async Task UpsertTransaction()
     {
-        var upsert = await _wallet.UpsertTransactionAsync(new(null, _walletId, Guid.NewGuid().ToString(), 100000, TransactionType.Increment, TransactionStatus.Complete,
+        var upsert = await _wallet.UpsertTransactionAsync(new(null, Constants.walletId, Guid.NewGuid().ToString(), 100000, TransactionType.Increment, TransactionStatus.Complete,
             new(null, "Charge Wallet", [new("Authority", "res.Authority")])));
         if (!upsert.Success)
         {
@@ -93,7 +90,7 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     [Fact]
     public async Task FindByUniqId()
     {
-        var find = await _wallet.FindByUniqIdAsync("57e39e8e-e8bb-4257-8a4c-cbb07b715789", _walletId);
+        var find = await _wallet.FindByUniqIdAsync("57e39e8e-e8bb-4257-8a4c-cbb07b715789", Constants.walletId);
         if (!find.Success)
         {
             Assert.Fail(find.Message);
@@ -108,7 +105,7 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     [Fact]
     public async Task TransferToAppWallet()
     {
-        var transfer = await _wallet.TransferToAppWalletAsync(null, _walletId, 10000, TransactionStatus.Complete);
+        var transfer = await _wallet.TransferToAppWalletAsync(null, Constants.walletId, 10000, TransactionStatus.Complete);
         if (!transfer.Success)
         {
             Assert.Fail(transfer.Message);
