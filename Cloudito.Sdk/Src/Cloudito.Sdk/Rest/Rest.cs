@@ -6,7 +6,7 @@ internal class Rest(IHttpClientFactory httpClientFactory) : IRest
 {
     private readonly HttpClient _client = httpClientFactory.CreateClient(Constants.HttpClientName);
 
-    public async Task<ApiModel<TModel>> GetAsync<TModel>(string url)
+    public async Task<ApiResult<TModel>> GetAsync<TModel>(string url)
     {
         try
         {
@@ -19,7 +19,7 @@ internal class Rest(IHttpClientFactory httpClientFactory) : IRest
         }
     }
 
-    public async Task<ApiModel<TModel>> PostAsync<TModel>(string url, object body)
+    public async Task<ApiResult<TModel>> PostAsync<TModel>(string url, object body)
     {
         try
         {
@@ -32,7 +32,7 @@ internal class Rest(IHttpClientFactory httpClientFactory) : IRest
         }
     }
 
-    public async Task<ApiModel<TModel>> DeleteAsync<TModel>(string url)
+    public async Task<ApiResult<TModel>> DeleteAsync<TModel>(string url)
     {
         try
         {
@@ -45,22 +45,22 @@ internal class Rest(IHttpClientFactory httpClientFactory) : IRest
         }
     }
 
-    static async Task<ApiModel<TModel>> ProcessResponse<TModel>(HttpResponseMessage response)
+    static async Task<ApiResult<TModel>> ProcessResponse<TModel>(HttpResponseMessage response)
     {
         var content = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
         {
-            ApiModel<TModel>? result = JsonConvert.DeserializeObject<ApiModel<TModel>>(content);
+            ApiResult<TModel>? result = JsonConvert.DeserializeObject<ApiResult<TModel>>(content);
             return result is null ?
-                new ApiModel<TModel>((int)response.StatusCode, false, response.ReasonPhrase ?? "Error", default)
+                new ApiResult<TModel>((int)response.StatusCode, false, response.ReasonPhrase ?? "Error", default)
                 : result;
         }
 
-        return new ApiModel<TModel>((int)response.StatusCode, false, response.ReasonPhrase ?? "Error", default);
+        return new ApiResult<TModel>((int)response.StatusCode, false, response.ReasonPhrase ?? "Error", default);
     }
 
-    static ApiModel<TModel> HandleException<TModel>(Exception ex, string errorMessage)
+    static ApiResult<TModel> HandleException<TModel>(Exception ex, string errorMessage)
             => new(500, false, $"{errorMessage}: {ex.Message}", default);
 
 

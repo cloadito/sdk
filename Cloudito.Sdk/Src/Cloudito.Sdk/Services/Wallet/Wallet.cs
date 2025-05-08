@@ -11,8 +11,8 @@ internal class WalletService(IBaseService baseService) : IWallet
     public async Task<ServiceResult<WalletInventory?>> GetInventoryAsync(Guid userId)
         => await baseService.CallServiceAsync<WalletInventory?>(UrlsConst.Wallet.GetInventory(userId), null, HttpMethod.Get);
 
-    public async Task<ServiceResult<PaginationResult<WalletTransaction>>> GetTransactionsAsync(Guid walletId, int page, int count)
-        => await baseService.CallServiceAsync<PaginationResult<WalletTransaction>>(UrlsConst.Wallet.GetWalletTransactions(walletId, page, count), null, HttpMethod.Get);
+    public async Task<ServiceResult<Pagination<WalletTransaction>>> GetTransactionsAsync(Guid walletId, int page, int count)
+        => await baseService.CallServiceAsync<Pagination<WalletTransaction>>(UrlsConst.Wallet.GetWalletTransactions(walletId, page, count), null, HttpMethod.Get);
 
     public async Task<ServiceResult<Wallet?>> GetUserWalletAsync(Guid userId)
         => await baseService.CallServiceAsync<Wallet?>(UrlsConst.Wallet.GetUserWallet(userId), null, HttpMethod.Get);

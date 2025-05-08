@@ -14,8 +14,8 @@ public interface IWallet
     /// <param name="walletId">Wallet id </param>
     /// <param name="page">start page that is zero index</param>
     /// <param name="count">page size</param>
-    /// <returns><see cref="PaginationResult{TResult}"/> Of <see cref="WalletTransaction"/> </returns>
-    Task<ServiceResult<PaginationResult<WalletTransaction>>> GetTransactionsAsync(Guid walletId, int page, int count);
+    /// <returns><see cref="Pagination{TResult}"/> Of <see cref="WalletTransaction"/> </returns>
+    Task<ServiceResult<Pagination<WalletTransaction>>> GetTransactionsAsync(Guid walletId, int page, int count);
 
     /// <summary>
     /// Upsert transaction

@@ -6,7 +6,7 @@ internal class Auth(IRest rest) : IAuth
     {
         try
         {
-            ApiModel<LoginResult> request = await rest.PostAsync<LoginResult>(UrlsConst.Identity.LoginOtp, new
+            ApiResult<LoginResult> request = await rest.PostAsync<LoginResult>(UrlsConst.Identity.LoginOtp, new
             {
                 UserName = userName,
                 Code = code
@@ -23,7 +23,7 @@ internal class Auth(IRest rest) : IAuth
     {
         try
         {
-            ApiModel<object> request = await rest.PostAsync<object>(UrlsConst.Identity.SendOtp, new
+            ApiResult<object> request = await rest.PostAsync<object>(UrlsConst.Identity.SendOtp, new
             {
                 UserName = userName
             });
