@@ -33,4 +33,17 @@ public interface ITicket
     /// <param name="ticket">instance of <see cref="NewTicket"/></param>
     /// <returns>Service result of <see cref="Ticket?"/></returns>
     Task<ServiceResult<Ticket?>> NewTicketAsync(NewTicket ticket);
+
+    /// <summary>
+    /// Get ticket message list
+    /// </summary>
+    /// <param name="ticketId">Ticket id</param>
+    /// <param name="page">page index that zero index</param>
+    /// <param name="count">page size</param>
+    /// <returns>instance of <see cref="Pagination{TResult}"/></returns>
+    Task<ServiceResult<Pagination<TicketMessage>>> GetMessagesAsync(Guid ticketId, int page, int count);
+
+    Task<ServiceResult<TicketMessage?>> UpsertMessageAsync(TicketMessage message);
+
+    Task<ServiceResult<object>> DeleteMessageAsync(Guid ticketId, Guid messageId);
 }
