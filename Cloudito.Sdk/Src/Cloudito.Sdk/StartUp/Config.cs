@@ -29,6 +29,9 @@ public static class ClouditoSdkConfig
         // App
         services.AddScoped<IAppFinder, AppFinder>();
 
+        // Ticket
+        services.AddScoped<ITicket, TicketService>();
+
         return services;
     }
 }
