@@ -2,6 +2,8 @@
 
 public record Ticket(Guid Id, string Title, string Description, TicketStatus Status, TicketPriority Priority, Guid RequesterId, Guid? DepartmentId);
 
+public record NewTicket(string Title, string Description, TicketStatus Status, TicketPriority Priority, Guid RequesterId, Guid? DepartmentId);
+
 public enum TicketStatus
 {
     Active,

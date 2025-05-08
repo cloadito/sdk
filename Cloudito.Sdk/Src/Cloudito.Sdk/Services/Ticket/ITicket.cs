@@ -26,4 +26,11 @@ public interface ITicket
     /// <param name="count">page size</param>
     /// <returns>Pagination model of <see cref="Ticket"/></returns>
     Task<ServiceResult<Pagination<Ticket>>> GetUserTicketsAsync(Guid userId, Guid? departmentId, int page, int count);
+
+    /// <summary>
+    /// Create new ticket 
+    /// </summary>
+    /// <param name="ticket">instance of <see cref="NewTicket"/></param>
+    /// <returns>Service result of <see cref="Ticket?"/></returns>
+    Task<ServiceResult<Ticket?>> NewTicketAsync(NewTicket ticket);
 }
