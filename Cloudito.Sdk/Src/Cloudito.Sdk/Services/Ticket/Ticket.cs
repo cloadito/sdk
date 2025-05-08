@@ -20,6 +20,6 @@ internal class TicketService(IBaseService baseService) : ITicket
     public async Task<ServiceResult<Ticket?>> NewTicketAsync(NewTicket ticket)
         => await baseService.CallServiceAsync<Ticket?>(UrlsConst.Ticket.New, ticket, HttpMethod.Post);
 
-    public async Task<ServiceResult<TicketMessage?>> UpsertMessageAsync(TicketMessage message)
+    public async Task<ServiceResult<TicketMessage?>> UpsertMessageAsync(UpsertTicketMessage message)
         => await baseService.CallServiceAsync<TicketMessage?>(UrlsConst.Ticket.UpsertMessage, message, HttpMethod.Post);
 }

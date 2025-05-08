@@ -43,7 +43,7 @@ public interface ITicket
     /// <returns>instance of <see cref="Pagination{TResult}"/></returns>
     Task<ServiceResult<Pagination<TicketMessage>>> GetMessagesAsync(Guid ticketId, int page, int count);
 
-    Task<ServiceResult<TicketMessage?>> UpsertMessageAsync(TicketMessage message);
+    Task<ServiceResult<TicketMessage?>> UpsertMessageAsync(UpsertTicketMessage message);
 
     Task<ServiceResult<object>> DeleteMessageAsync(Guid ticketId, Guid messageId);
 }
