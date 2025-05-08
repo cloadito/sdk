@@ -40,6 +40,18 @@ internal class UrlsConst
 
     public class Ticket
     {
+        public const string GetDepartmetns = "/ticket/department/get-list";
 
+        public static Func<Guid, Guid, string> DeleteMessage = (Guid ticketId, Guid messageId) => $"/ticket/message/delete?ticketId={ticketId}&messageId={messageId}";
+
+        public static Func<Guid, int, int, string> GetMessages = (Guid ticketId, int page, int count) => $"/ticket/message/get-list?ticketId={ticketId}&page={page}&count={count}";
+
+        public const string UpsertMessage = "/ticket/message/upsert";
+
+        public static Func<Guid?, int, int, string> GetAppTickets = (Guid? departmentId, int page, int count) => $"/ticket/get-app-tickets?departmentId={departmentId}&page={page}&count={count}";
+
+        public static Func<Guid, Guid?, int, int, string> GetUserTickets = (Guid userId, Guid? departmentId, int page, int count) => $"/ticket/get-user-tickets?userId={userId}&departmentId={departmentId}&page={page}&count={count}";
+
+        public const string New = "/ticket/new";
     }
 }
