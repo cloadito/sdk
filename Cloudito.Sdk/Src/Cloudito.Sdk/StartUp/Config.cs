@@ -28,6 +28,7 @@ public static class ClouditoSdkConfig
 
         // App
         services.AddScoped<IAppFinder, AppFinder>();
+        services.AddScoped<IApplication, ApplicationService>();
 
         // Ticket
         services.AddScoped<ITicket, TicketService>();

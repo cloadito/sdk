@@ -1,6 +1,6 @@
 ﻿namespace Cloudito.Sdk.Services;
 
-internal class Application(IBaseService baseService) : IApplication
+internal class ApplicationService(IBaseService baseService) : IApplication
 {
     public async Task<ServiceResult<bool>> IsAdminAsync(Guid userId, Guid appId)
         => await baseService.CallServiceAsync<bool>(UrlsConst.Applicaitons.IsAdmin, new
