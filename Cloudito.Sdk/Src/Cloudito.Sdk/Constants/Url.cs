@@ -4,13 +4,32 @@ internal class UrlsConst
 {
     public const string V1 = "v1.0";
 
-    public const string V1BaseUrl = $"api/{V1}";
+    public const string V1BaseUrl = $"/api/{V1}";
 
     public class Identity
     {
-        public const string SendOtp = $"/auth/send-otp";
+        public const string SendOtp = $"{V1BaseUrl}/auth/send-otp";
 
-        public const string LoginOtp = $"/auth/login-otp";
+        public const string LoginOtp = $"{V1BaseUrl}/auth/login-otp";
+
+        public const string GetProfile = $"{V1BaseUrl}/auth/get-profile";
+
+        public const string RefreshToken = $"{V1BaseUrl}/auth/refresh-token";
+
+        public const string SetPassword = $"{V1BaseUrl}/auth/set-password";
+
+        public const string SetProfile = $"{V1BaseUrl}/auth/set-profile";
+
+        public const string GetRoles = $"{V1BaseUrl}/role/get-roles";
+
+        public const string ForceRegister = $"{V1BaseUrl}/role/force-register";
+
+        public const string GetAppUsers = $"{V1BaseUrl}/role/get-app-users";
+
+        public const string GetUserRoles = $"{V1BaseUrl}/role/get-user-roles";
+
+        public const string IsInRole = $"{V1BaseUrl}/role/is-in-role";
+
     }
 
     public class Wallet
@@ -35,7 +54,9 @@ internal class UrlsConst
 
     public class Applicaitons
     {
+        public const string IsAdmin = $"{V1BaseUrl}/application/is-admin";
 
+        public const string MakeTransaction = $"{V1BaseUrl}/application/make-trnsaction";
     }
 
     public class Ticket
