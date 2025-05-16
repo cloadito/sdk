@@ -6,16 +6,26 @@ namespace Cloudito.Sdk;
 
 public static class ClouditoSdkConfig
 {
-    public static IServiceCollection AddCloudito(this IServiceCollection services, string apiKey)
+    public static IServiceCollection AddCloudito(this IServiceCollection services, string apiKey, string? serviceKey = null)
     {
         Settings.ApiKey = apiKey;
+        Settings.ServiceKey = serviceKey;
 
         // Common
         services.AddHttpClient(Constants.HttpClientName, client =>
         {
             client.BaseAddress = new Uri(Constants.ServerAddress);
             client.DefaultRequestHeaders.Add(Constants.HeaderKey, apiKey);
+            if (!string.IsNullOrEmpty(serviceKey))
+                client.DefaultRequestHeaders.Add(Constants.ServiceHeaderKey, serviceKey);
         });
+
+        services.AddServices();
+        return services;
+    }
+
+    static void AddServices(this IServiceCollection services)
+    {
         services.AddScoped<IRest, Rest>();
         services.AddScoped<IBaseService, BaseService>();
 
@@ -32,7 +42,5 @@ public static class ClouditoSdkConfig
 
         // Ticket
         services.AddScoped<ITicket, TicketService>();
-
-        return services;
     }
 }

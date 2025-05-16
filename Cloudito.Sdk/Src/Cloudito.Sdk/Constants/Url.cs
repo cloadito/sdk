@@ -56,7 +56,7 @@ internal class UrlsConst
     {
         public const string IsAdmin = $"{V1BaseUrl}/application/is-admin";
 
-        public const string MakeTransaction = $"{V1BaseUrl}/application/make-trnsaction";
+        public const string MakeTransaction = $"{V1BaseUrl}/application/make-transaction";
     }
 
     public class Ticket

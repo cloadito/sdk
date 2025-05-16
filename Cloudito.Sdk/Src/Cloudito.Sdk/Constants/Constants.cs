@@ -8,6 +8,8 @@ internal class Constants
 
     public const string HeaderKey = "X-Api-Key";
 
+    public const string ServiceHeaderKey = "X-S-Api-Key";
+
     public class JwtConstnats
     {
         public const string Id = "Id";

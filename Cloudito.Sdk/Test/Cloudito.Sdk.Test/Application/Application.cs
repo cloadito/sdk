@@ -24,4 +24,20 @@ public class ApplicationTest(TestFixture fixture, ITestOutputHelper outputHelper
         outputHelper.WriteLine(isAdmin.Message);
         outputHelper.WriteLine(isAdmin.Result.ToString());
     }
+
+    [Fact]
+    public async Task MakeTransaction()
+    {
+        var transaction = await _app.MakeTransactionAsync(Constants.appId, 1000);
+
+        if (!transaction.Success)
+        {
+            Assert.Fail(transaction.Message);
+            return;
+        }
+
+        Assert.True(transaction.Success);
+        outputHelper.WriteLine(transaction.Message);
+        outputHelper.WriteLine(transaction.Result?.ToString());
+    }
 }
