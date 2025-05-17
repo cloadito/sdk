@@ -48,6 +48,13 @@ internal class Rest(IHttpClientFactory httpClientFactory) : IRest
     static async Task<ApiResult<TModel>> ProcessResponse<TModel>(HttpResponseMessage response)
     {
         var content = await response.Content.ReadAsStringAsync();
+        if (content.Contains("{}"))
+        {
+            if (typeof(TModel) == typeof(bool))
+                content = content.Replace("{}", "false");
+            if (typeof(TModel) == typeof(int))
+                content = content.Replace("{}", "0");
+        }
 
         if (response.IsSuccessStatusCode)
         {
