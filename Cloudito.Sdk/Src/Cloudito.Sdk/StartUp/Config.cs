@@ -32,6 +32,7 @@ public static class ClouditoSdkConfig
         // Identity
         services.AddScoped<IUserFinder, UserFinder>();
         services.AddScoped<IAuth, Auth>();
+        services.AddScoped<IUser, UserService>();
 
         //Wallet
         services.AddScoped<IWallet, WalletService>();
