@@ -1,7 +1,10 @@
 ﻿namespace Cloudito.Sdk.Services;
 
-internal class Auth(IRest rest) : IAuth
+internal class Auth(IRest rest, IBaseService baseService) : IAuth
 {
+    public async Task<ServiceResult<User?>> GetProfileAsync(Guid userId)
+        => await baseService.CallServiceAsync<User?>(UrlsConst.Identity.GetProfile(userId), null, HttpMethod.Get);
+
     public async Task<ServiceResult<LoginResult>> LoginOtpAsync(string userName, string code)
     {
         try
@@ -34,4 +37,7 @@ internal class Auth(IRest rest) : IAuth
             return ServiceResult<object>.Error(ex.Message);
         }
     }
+
+    public async Task<ServiceResult<User?>> SetProfileAsync(SetProfile profile)
+     => await baseService.CallServiceAsync<User?>(UrlsConst.Identity.SetProfile, profile, HttpMethod.Post);
 }
