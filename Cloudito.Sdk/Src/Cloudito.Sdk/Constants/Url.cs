@@ -12,6 +12,8 @@ internal class UrlsConst
 
         public const string LoginOtp = $"{V1BaseUrl}/auth/login-otp";
 
+        public const string Login = $"{V1BaseUrl}/auth/login";
+
         public static Func<Guid, string> GetProfile = (userId) => $"{V1BaseUrl}/auth/get-profile?userId={userId}";
 
         public const string RefreshToken = $"{V1BaseUrl}/auth/refresh-token";
