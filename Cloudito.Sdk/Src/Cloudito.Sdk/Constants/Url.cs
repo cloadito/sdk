@@ -24,13 +24,17 @@ internal class UrlsConst
 
         public const string GetRoles = $"{V1BaseUrl}/role/get-roles";
 
-        public const string ForceRegister = $"{V1BaseUrl}/role/force-register";
+        public static Func<Guid, string> FindUserById = (userId) => $"{V1BaseUrl}/user/find-by-id?id={userId}";
 
-        public const string GetAppUsers = $"{V1BaseUrl}/role/get-app-users";
+        public const string ForceRegister = $"{V1BaseUrl}/user/force-register";
 
-        public const string GetUserRoles = $"{V1BaseUrl}/role/get-user-roles";
+        public const string HasAccess = $"{V1BaseUrl}/user/has-access";
 
-        public const string IsInRole = $"{V1BaseUrl}/role/is-in-role";
+        public static Func<int, int, string> GetAppUsers = (page, count) => $"{V1BaseUrl}/user/get-app-users?page={page}&count={count}";
+
+        public static Func<Guid, string> GetUserRoles = (userId) => $"{V1BaseUrl}/user/get-user-roles?userId={userId}";
+
+        public static Func<Guid, string, string> IsInRole = (userId, role) => $"{V1BaseUrl}/user/is-in-role?userId={userId}&role={role}";
 
     }
 
