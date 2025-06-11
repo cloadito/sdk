@@ -24,4 +24,7 @@ internal class ApplicationService(IBaseService baseService) : IApplication
 
     public async Task<ServiceResult<object>> MakeTransactionAsync(MakeTransaction transaction)
          => await baseService.CallServiceAsync<object>(UrlsConst.Applicaitons.MakeTransaction, transaction, HttpMethod.Post);
+
+    public async Task<ServiceResult<object>> MakeTransactionAsync(Guid appId, decimal amount)
+        => await MakeTransactionAsync(new(appId, amount));
 }

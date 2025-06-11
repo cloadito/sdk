@@ -4,6 +4,7 @@ public interface IApplication
 {
     Task<ServiceResult<bool>> IsAdminAsync(Guid userId, Guid appId);
 
+    [Obsolete("This function deprecated")]
     Task<ServiceResult<object>> MakeTransactionAsync(Guid appId, decimal amount);
 
     Task<ServiceResult<object>> MakeTransactionAsync(MakeTransaction transaction);
