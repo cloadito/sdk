@@ -1,11 +1,20 @@
-﻿namespace Cloudito.Sdk.Services;
+﻿using Microsoft.Extensions.Logging;
 
-internal class BaseService(IRest rest) : IBaseService
+namespace Cloudito.Sdk.Services;
+
+internal class BaseService(IRest rest, ILogger<BaseService> logger) : IBaseService
 {
     public async Task<ServiceResult<T>> CallServiceAsync<T>(string url, object? body, HttpMethod method)
     {
+        var action = url.Split('/').Last();
         try
         {
+            logger.LogInformation("Start call service {@Details}", new
+            {
+                Action = action,
+                Method = method
+            });
+
             var result = method.Method.ToLower() switch
             {
                 "post" => await rest.PostAsync<T>(url, body ?? new { }),
@@ -14,10 +23,23 @@ internal class BaseService(IRest rest) : IBaseService
                 _ => await rest.GetAsync<T>(url),
             };
 
+            logger.LogInformation("Finished call service {@Details}", new
+            {
+                Action = action,
+                Method = method,
+                result.Status,
+                result.Code,
+            });
+
             return ServiceResult<T>.FromApi(result);
         }
         catch (Exception ex)
         {
+            logger.LogError("Finished call service {@Details} {@Exception}", new
+            {
+                Action = action,
+                Method = method
+            }, ex);
             return ServiceResult<T>.Error(ex.Message);
         }
     }
