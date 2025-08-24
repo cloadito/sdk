@@ -30,26 +30,31 @@ internal class UrlsConst
 
         public const string HasAccess = $"{V1BaseUrl}/user/has-access";
 
-        public static Func<int, int, string> GetAppUsers = (page, count) => $"{V1BaseUrl}/user/get-app-users?page={page}&count={count}";
+        public static Func<int, int, string> GetAppUsers = (page, count) =>
+            $"{V1BaseUrl}/user/get-app-users?page={page}&count={count}";
 
         public static Func<Guid, string> GetUserRoles = (userId) => $"{V1BaseUrl}/user/get-user-roles?userId={userId}";
 
-        public static Func<Guid, string, string> IsInRole = (userId, role) => $"{V1BaseUrl}/user/is-in-role?userId={userId}&role={role}";
-
+        public static Func<Guid, string, string> IsInRole = (userId, role) =>
+            $"{V1BaseUrl}/user/is-in-role?userId={userId}&role={role}";
     }
 
     public class Wallet
     {
         public static Func<Guid, string> Init = (Guid userId) => $"{V1BaseUrl}/wallet/init?userId={userId}";
 
-        public static Func<Guid, string> GetUserWallet = (Guid userId) => $"{V1BaseUrl}/wallet/get-user-wallet?userId={userId}";
+        public static Func<Guid, string> GetUserWallet =
+            (Guid userId) => $"{V1BaseUrl}/wallet/get-user-wallet?userId={userId}";
 
-        public static Func<Guid, string> GetInventory = (Guid userId) => $"{V1BaseUrl}/wallet/get-inventory?userId={userId}";
+        public static Func<Guid, string> GetInventory = (Guid userId) =>
+            $"{V1BaseUrl}/wallet/get-inventory?userId={userId}";
 
 
-        public static Func<Guid, int, int, string> GetWalletTransactions = (Guid walletId, int page, int count) => $"{V1BaseUrl}/transaction/get-transactions?walletId={walletId}&page={page}&count={count}";
+        public static Func<Guid, int, int, string> GetWalletTransactions = (Guid walletId, int page, int count) =>
+            $"{V1BaseUrl}/transaction/get-transactions?walletId={walletId}&page={page}&count={count}";
 
-        public static Func<string, Guid, string> FindTransactionByUniqId = (string uniqId, Guid walletId) => $"{V1BaseUrl}/transaction/find-by-uniqid?uniqId={uniqId}&walletId={walletId}";
+        public static Func<string, Guid, string> FindTransactionByUniqId = (string uniqId, Guid walletId) =>
+            $"{V1BaseUrl}/transaction/find-by-uniqid?uniqId={uniqId}&walletId={walletId}";
 
         public const string UpsertTransaction = $"{V1BaseUrl}/wallet/transaction/upsert";
 
@@ -71,18 +76,46 @@ internal class UrlsConst
 
     public class Ticket
     {
-        public const string GetDepartmetns = $"{V1BaseUrl}/department/get-list";
+        public const string GetDepartments = $"{V1BaseUrl}/department/get-list";
 
-        public static Func<Guid, Guid, string> DeleteMessage = (Guid ticketId, Guid messageId) => $"{V1BaseUrl}/message/delete?ticketId={ticketId}&messageId={messageId}";
+        public static Func<Guid, Guid, string> DeleteMessage = (Guid ticketId, Guid messageId) =>
+            $"{V1BaseUrl}/message/delete?ticketId={ticketId}&messageId={messageId}";
 
-        public static Func<Guid, int, int, string> GetMessages = (Guid ticketId, int page, int count) => $"{V1BaseUrl}/message/get-list?ticketId={ticketId}&page={page}&count={count}";
+        public static Func<Guid, int, int, string> GetMessages = (Guid ticketId, int page, int count) =>
+            $"{V1BaseUrl}/message/get-list?ticketId={ticketId}&page={page}&count={count}";
 
         public const string UpsertMessage = "/ticket/message/upsert";
 
-        public static Func<Guid?, int, int, string> GetAppTickets = (Guid? departmentId, int page, int count) => $"{V1BaseUrl}/get-app-tickets?{(departmentId is null ? "" : $"departmentId={departmentId}&")}page={page}&count={count}";
+        public static Func<Guid?, int, int, string> GetAppTickets = (Guid? departmentId, int page, int count) =>
+            $"{V1BaseUrl}/get-app-tickets?{(departmentId is null ? "" : $"departmentId={departmentId}&")}page={page}&count={count}";
 
-        public static Func<Guid, Guid?, int, int, string> GetUserTickets = (Guid userId, Guid? departmentId, int page, int count) => $"{V1BaseUrl}/get-user-tickets?userId={userId}&{(departmentId is null ? "" : $"departmentId={departmentId}&")}page={page}&count={count}";
+        public static Func<Guid, Guid?, int, int, string> GetUserTickets =
+            (Guid userId, Guid? departmentId, int page, int count) =>
+                $"{V1BaseUrl}/get-user-tickets?userId={userId}&{(departmentId is null ? "" : $"departmentId={departmentId}&")}page={page}&count={count}";
 
         public const string New = $"{V1BaseUrl}/ticket/new";
+    }
+
+    public class Shop
+    {
+        public static Func<Guid, string> Delete = (id) => $"{V1BaseUrl}/shop/delete?id={id}";
+
+        public static Func<Guid, string> GetAdmins = (id) => $"{V1BaseUrl}/shop/get-admins?id={id}";
+
+        public static Func<int, int, string?, string> GetShopsList = (page, count, q) =>
+            $"{V1BaseUrl}/shop/get-list?page={page}&count={count}{(string.IsNullOrEmpty(q) ? "" : $"&q={q}")}";
+
+        public static Func<Guid, int, int, string> GetUserShops = (id, page, count) =>
+            $"{V1BaseUrl}/shop/get-user-shops?id={id}&page={page}&count={count}";
+
+        /// <summary>
+        /// Remove admin first parameter is shop id and second is user id
+        /// </summary>
+        public static Func<Guid, Guid, string> RemoveAdmin = (shopId, userId) =>
+            $"{V1BaseUrl}/shop/remove-admin?shopId={shopId}&userId={userId}";
+
+        public const string Upsert = $"{V1BaseUrl}/shop/upsert";
+
+        public const string UpsertAdmin = $"{V1BaseUrl}/shop/upsert-admin";
     }
 }
