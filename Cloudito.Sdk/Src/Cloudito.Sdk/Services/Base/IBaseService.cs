@@ -2,5 +2,6 @@
 
 internal interface IBaseService
 {
-    Task<ServiceResult<T>> CallServiceAsync<T>(string url, object? body, HttpMethod method);
+    Task<ServiceResult<T>> CallServiceAsync<T>(string url, object? body, HttpMethod method,
+        CancellationToken cancellationToken = default);
 }

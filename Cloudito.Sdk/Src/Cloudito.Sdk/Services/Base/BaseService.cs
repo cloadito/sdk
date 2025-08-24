@@ -4,7 +4,8 @@ namespace Cloudito.Sdk.Services;
 
 internal class BaseService(IRest rest, ILogger<BaseService> logger) : IBaseService
 {
-    public async Task<ServiceResult<T>> CallServiceAsync<T>(string url, object? body, HttpMethod method)
+    public async Task<ServiceResult<T>> CallServiceAsync<T>(string url, object? body, HttpMethod method,
+        CancellationToken cancellationToken = default)
     {
         var action = url.Split('/').Last();
         try
@@ -17,10 +18,10 @@ internal class BaseService(IRest rest, ILogger<BaseService> logger) : IBaseServi
 
             var result = method.Method.ToLower() switch
             {
-                "post" => await rest.PostAsync<T>(url, body ?? new { }),
-                "get" => await rest.GetAsync<T>(url),
-                "delete" => await rest.DeleteAsync<T>(url),
-                _ => await rest.GetAsync<T>(url),
+                "post" => await rest.PostAsync<T>(url, body ?? new { }, cancellationToken),
+                "get" => await rest.GetAsync<T>(url, cancellationToken),
+                "delete" => await rest.DeleteAsync<T>(url, cancellationToken),
+                _ => await rest.GetAsync<T>(url, cancellationToken),
             };
 
             logger.LogInformation("Finished call service {@Details}", new
