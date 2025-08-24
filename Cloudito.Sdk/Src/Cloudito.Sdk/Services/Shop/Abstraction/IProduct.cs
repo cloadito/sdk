@@ -2,7 +2,7 @@ namespace Cloudito.Sdk.Services;
 
 public interface IProduct
 {
-    Task<ServiceResult<Product>> GetListAsync(GetProductsList request, CancellationToken cancellationToken = default);
+    Task<ServiceResult<Pagination<Product>>> GetListAsync(GetProductsList request, CancellationToken cancellationToken = default);
 
     Task<ServiceResult<ProductDetails>> GetDetailsAsync(Guid id, CancellationToken cancellationToken = default);
 

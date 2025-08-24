@@ -44,4 +44,8 @@ internal class BaseService(IRest rest, ILogger<BaseService> logger) : IBaseServi
             return ServiceResult<T>.Error(ex.Message);
         }
     }
+
+    public Task<ServiceResult<object>> CallServiceAsync(string url, object? body, HttpMethod method,
+        CancellationToken cancellationToken = default)
+        => CallServiceAsync<object>(url, body, method, cancellationToken);
 }
