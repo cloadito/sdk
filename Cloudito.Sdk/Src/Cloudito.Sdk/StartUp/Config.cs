@@ -43,5 +43,8 @@ public static class ClouditoSdkConfig
 
         // Ticket
         services.AddScoped<ITicket, TicketService>();
+        
+        // Shop
+        services.AddScoped<IShop, ShopService>();
     }
 }

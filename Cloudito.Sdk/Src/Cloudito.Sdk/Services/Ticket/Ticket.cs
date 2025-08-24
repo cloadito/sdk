@@ -9,7 +9,7 @@ internal class TicketService(IBaseService baseService) : ITicket
         => await baseService.CallServiceAsync<Pagination<Ticket>>(UrlsConst.Ticket.GetAppTickets(departmentId, page, count), null, HttpMethod.Get);
 
     public async Task<ServiceResult<IEnumerable<Department>>> GetDepartmentsAsync()
-        => await baseService.CallServiceAsync<IEnumerable<Department>>(UrlsConst.Ticket.GetDepartmetns, null, HttpMethod.Get);
+        => await baseService.CallServiceAsync<IEnumerable<Department>>(UrlsConst.Ticket.GetDepartments, null, HttpMethod.Get);
 
     public async Task<ServiceResult<Pagination<TicketMessage>>> GetMessagesAsync(Guid ticketId, int page, int count)
         => await baseService.CallServiceAsync<Pagination<TicketMessage>>(UrlsConst.Ticket.GetMessages(ticketId, page, count), null, HttpMethod.Get);
