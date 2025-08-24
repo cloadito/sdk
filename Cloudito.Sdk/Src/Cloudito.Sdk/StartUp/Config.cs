@@ -6,7 +6,8 @@ namespace Cloudito.Sdk;
 
 public static class ClouditoSdkConfig
 {
-    public static IServiceCollection AddCloudito(this IServiceCollection services, string apiKey, string? serviceKey = null)
+    public static IServiceCollection AddCloudito(this IServiceCollection services, string apiKey,
+        string? serviceKey = null)
     {
         Settings.ApiKey = apiKey;
         Settings.ServiceKey = serviceKey;
@@ -43,8 +44,9 @@ public static class ClouditoSdkConfig
 
         // Ticket
         services.AddScoped<ITicket, TicketService>();
-        
+
         // Shop
         services.AddScoped<IShop, ShopService>();
+        services.AddScoped<IProduct, ProductService>();
     }
 }
