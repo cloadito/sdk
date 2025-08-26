@@ -1,4 +1,6 @@
-﻿namespace Cloudito.Sdk.Services;
+﻿using Cloudito.Sdk.Base;
+
+namespace Cloudito.Sdk.Services;
 
 internal interface IBaseService
 {

@@ -11,6 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{27593374-8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudito.Sdk.Test", "Test\Cloudito.Sdk.Test\Cloudito.Sdk.Test.csproj", "{36739124-9723-4AFA-8998-32D072697137}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudito.Sdk.Base", "Src\Cloudito.Sdk.Base\Cloudito.Sdk.Base.csproj", "{B5D2C98C-16AB-472D-87C5-E9D8CE5CC2F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02293CB5-D799-4711-B7B2-68F759FCEBA0}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +33,10 @@ Global
 		{36739124-9723-4AFA-8998-32D072697137}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36739124-9723-4AFA-8998-32D072697137}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36739124-9723-4AFA-8998-32D072697137}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D2C98C-16AB-472D-87C5-E9D8CE5CC2F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D2C98C-16AB-472D-87C5-E9D8CE5CC2F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D2C98C-16AB-472D-87C5-E9D8CE5CC2F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D2C98C-16AB-472D-87C5-E9D8CE5CC2F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2B48E6A7-B05E-431D-8181-EF3AA0E5D83F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{36739124-9723-4AFA-8998-32D072697137} = {27593374-8374-4E00-B6FC-BAA06F5A04B8}
+		{B5D2C98C-16AB-472D-87C5-E9D8CE5CC2F4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {997C36F3-7395-45B8-82BE-E141BB61FF39}

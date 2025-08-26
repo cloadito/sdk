@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace Cloudito.Sdk;
+namespace Cloudito.Sdk.Base;
+
 public record ApiResult<TModel>(int Code, bool Status, string Message, TModel? Result);
 
 public record ServiceResult<TModel>(bool Success, string Message, TModel? Result)

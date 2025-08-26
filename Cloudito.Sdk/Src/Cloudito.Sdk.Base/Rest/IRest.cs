@@ -1,6 +1,6 @@
-﻿namespace Cloudito.Sdk;
+﻿namespace Cloudito.Sdk.Base;
 
-internal interface IRest : IDisposable
+public interface IRest : IDisposable
 {
     Task<ApiResult<TModel>> GetAsync<TModel>(string url,CancellationToken cancellationToken = default);
 

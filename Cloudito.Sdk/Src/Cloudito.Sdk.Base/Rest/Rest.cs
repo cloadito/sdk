@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http.Json;
 
-namespace Cloudito.Sdk;
+namespace Cloudito.Sdk.Base;
 
 internal class Rest(IHttpClientFactory httpClientFactory) : IRest
 {
-    private readonly HttpClient _client = httpClientFactory.CreateClient(Constants.HttpClientName);
+    private readonly HttpClient _client = httpClientFactory.CreateClient(Settings.HttpClientName);
 
     public async Task<ApiResult<TModel>> GetAsync<TModel>(string url, CancellationToken cancellationToken = default)
     {
