@@ -24,7 +24,7 @@ jobs:
             PROJECT_PATH="Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj"
           elif [[ "$TAG_NAME" == base-v* ]]; then
             VERSION=${TAG_NAME#base-v}   # Remove leading 'base-v'
-            PROJECT_PATH="Cloudito.Sdk.Base/Src/Cloudito.Sdk.Base/Cloudito.Sdk.Base.csproj"
+            PROJECT_PATH="Cloudito.Sdk/Src/Cloudito.Sdk.Base/Cloudito.Sdk.Base.csproj"
           else
             echo "Unsupported tag format"
             exit 1
@@ -37,10 +37,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
-      - name: Update package version
-        run: |
-          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.extract_version.outputs.version }}<\/Version>/" ${{ steps.extract_version.outputs.project_path }}
 
       - name: Restore dependencies
         run: dotnet restore ${{ steps.extract_version.outputs.project_path }}
