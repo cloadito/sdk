@@ -38,10 +38,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Update package version
-        run: |
-          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.extract_version.outputs.version }}<\/Version>/" ${{ steps.extract_version.outputs.project_path }}
-
       - name: Restore dependencies
         run: dotnet restore ${{ steps.extract_version.outputs.project_path }}
 
