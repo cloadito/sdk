@@ -3,7 +3,8 @@ name: Publish NuGet Package
 on:
   push:
     tags:
-      - 'v*'  # Trigger only when a tag starting with 'v' is pushed
+      - 'v*'
+      - 'base-v*'
 
 jobs:
   publish:
@@ -16,28 +17,39 @@ jobs:
 
       - name: Extract version from tag 
         id: extract_version 
-        run: | 
-          VERSION=$(echo ${GITHUB_REF#refs/tags/v-} | awk -F'-' '{print $NF}') 
-          echo "::set-output name=version::$VERSION"
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          if [[ "$TAG_NAME" == v* ]]; then
+            VERSION=${TAG_NAME#v}        # Remove leading 'v'
+            PROJECT_PATH="Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj"
+          elif [[ "$TAG_NAME" == base-v* ]]; then
+            VERSION=${TAG_NAME#base-v}   # Remove leading 'base-v'
+            PROJECT_PATH="Cloudito.Sdk.Base/Src/Cloudito.Sdk.Base/Cloudito.Sdk.Base.csproj"
+          else
+            echo "Unsupported tag format"
+            exit 1
+          fi
+          echo "Tag: $TAG_NAME, Version: $VERSION, Project: $PROJECT_PATH"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "project_path=$PROJECT_PATH" >> $GITHUB_OUTPUT
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-            dotnet-version: '8.0.x'
- 
+          dotnet-version: '8.0.x'
 
       - name: Update package version
         run: |
-          sed -i 's/<Version>.*<\/Version>/<Version>${{ steps.extract_version.outputs.version }}<\/Version>/' Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj
+          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.extract_version.outputs.version }}<\/Version>/" ${{ steps.extract_version.outputs.project_path }}
 
       - name: Restore dependencies
-        run: dotnet restore Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj
+        run: dotnet restore ${{ steps.extract_version.outputs.project_path }}
 
       - name: Build project
-        run: dotnet build Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj --configuration Release --no-restore
+        run: dotnet build ${{ steps.extract_version.outputs.project_path }} --configuration Release --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj --configuration Release --output .
+        run: dotnet pack ${{ steps.extract_version.outputs.project_path }} --configuration Release --output .
 
       - name: Publish to NuGet
         run: dotnet nuget push "*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
