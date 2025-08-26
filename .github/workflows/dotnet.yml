@@ -24,7 +24,7 @@ jobs:
             PROJECT_PATH="Cloudito.Sdk/Src/Cloudito.Sdk/Cloudito.Sdk.csproj"
           elif [[ "$TAG_NAME" == base-v* ]]; then
             VERSION=${TAG_NAME#base-v}   # Remove leading 'base-v'
-            PROJECT_PATH="Cloudito.Sdk.Base/Src/Cloudito.Sdk.Base/Cloudito.Sdk.Base.csproj"
+            PROJECT_PATH="Cloudito.Sdk/Src/Cloudito.Sdk.Base/Cloudito.Sdk.Base.csproj"
           else
             echo "Unsupported tag format"
             exit 1
