@@ -2,7 +2,7 @@
 
 namespace Cloudito.Sdk.Services;
 
-internal interface IBaseService
+public interface IBaseService
 {
     Task<ServiceResult<T>> CallServiceAsync<T>(string url, object? body, HttpMethod method,
         CancellationToken cancellationToken = default);

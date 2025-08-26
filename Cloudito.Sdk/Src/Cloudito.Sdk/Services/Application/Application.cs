@@ -1,5 +1,4 @@
-﻿
-namespace Cloudito.Sdk.Services;
+﻿namespace Cloudito.Sdk.Services;
 
 internal class ApplicationService(IBaseService baseService) : IApplication
 {
