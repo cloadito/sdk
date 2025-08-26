@@ -27,8 +27,7 @@ public static class ClouditoSdkConfig
 
     static void AddServices(this IServiceCollection services)
     {
-        services.AddScoped<IRest, Rest>();
-        services.AddScoped<IBaseService, BaseService>();
+        services.AddClouditoBase(Constants.HttpClientName);
 
         // Identity
         services.AddScoped<IUserFinder, UserFinder>();
