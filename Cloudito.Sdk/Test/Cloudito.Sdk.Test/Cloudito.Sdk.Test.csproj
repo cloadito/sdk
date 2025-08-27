@@ -16,7 +16,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Src\Cloudito.Sdk\Cloudito.Sdk.csproj" />
+	  <ProjectReference Include="..\..\Src\Cloudito.Sdk\Cloudito.Sdk.Base.csproj" />
 	</ItemGroup>
-
-	
 </Project>

@@ -20,9 +20,9 @@ internal partial class UrlsConst
         public static readonly Func<string, Guid, string> FindTransactionByUniqId = (string uniqId, Guid walletId) =>
             $"{V1BaseUrl}/transaction/find-by-uniqid?uniqId={uniqId}&walletId={walletId}";
 
-        public const string UpsertTransaction = $"{V1BaseUrl}/wallet/transaction/upsert";
+        public const string UpsertTransaction = $"{V1BaseUrl}/transaction/upsert";
 
-        public const string TransferToAppWallet = $"{V1BaseUrl}/wallet/transaction/transfer-to-app-wallet";
+        public const string TransferToAppWallet = $"{V1BaseUrl}/transaction/transfer-to-app-wallet";
 
         public const string GetAppWallet = $"{V1BaseUrl}/wallet/get-app-wallet";
     }

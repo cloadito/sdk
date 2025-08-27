@@ -59,7 +59,7 @@ public class WalletTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
     public async Task GetTransactions()
     {
 
-        ServiceResult<Pagination<WalletTransaction>> transactions = await _wallet.GetTransactionsAsync((Guid)Constants.walletId, 0, 10);
+        var transactions = await _wallet.GetTransactionsAsync((Guid)Constants.walletId, 0, 10);
         if (!transactions.Success)
         {
             Assert.Fail(transactions.Message);
