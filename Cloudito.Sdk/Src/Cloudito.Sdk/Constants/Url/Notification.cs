@@ -13,5 +13,9 @@ internal partial class UrlsConst
         public const string AddMember = $"{V1BaseUrl}/groups/add-member";
 
         public const string RemoveMember = $"{V1BaseUrl}/groups/remove-member";
+
+        public const string GetNotifList = $"{V1BaseUrl}/notif/get-list";
+
+        public const string SendNotif = $"{V1BaseUrl}/notif/send";
     }
 }
