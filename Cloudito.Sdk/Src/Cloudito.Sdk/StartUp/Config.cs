@@ -47,5 +47,10 @@ public static class ClouditoSdkConfig
         // Shop
         services.AddScoped<IShop, ShopService>();
         services.AddScoped<IProduct, ProductService>();
+
+        // Notif
+        services.AddScoped<INotifGroup, NotifGroupService>();
+        services.AddScoped<INotification, NotificationService>();
+        services.AddScoped<INotifProvider, NotifProviderService>();
     }
 }
