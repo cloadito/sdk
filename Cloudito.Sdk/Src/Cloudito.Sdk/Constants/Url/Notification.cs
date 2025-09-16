@@ -17,5 +17,10 @@ internal partial class UrlsConst
         public const string GetNotifList = $"{V1BaseUrl}/notif/get-list";
 
         public const string SendNotif = $"{V1BaseUrl}/notif/send";
+
+        public static readonly Func<string, string> GetProviderByUniq = (uniq) => $"{V1BaseUrl}/provider/get-by-uniq";
+
+        public static readonly Func<int, int, string> GetProviders = (page, count) =>
+            $"{V1BaseUrl}/provider/get-list?page={page}&count={count}";
     }
 }
