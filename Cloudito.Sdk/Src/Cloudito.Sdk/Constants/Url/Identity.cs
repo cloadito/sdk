@@ -1,6 +1,6 @@
 namespace Cloudito.Sdk;
 
-internal  partial class UrlsConst
+internal partial class UrlsConst
 {
     public class Identity
     {
@@ -35,5 +35,8 @@ internal  partial class UrlsConst
 
         public static readonly Func<Guid, string, string> IsInRole = (userId, role) =>
             $"{V1BaseUrl}/user/is-in-role?userId={userId}&role={role}";
+
+        public static readonly Func<string, string> FindUserByUserName =
+            (userName) => $"{V1BaseUrl}/user/find-user-by-user-name?userName={userName}";
     }
 }
