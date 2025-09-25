@@ -37,6 +37,6 @@ internal partial class UrlsConst
             $"{V1BaseUrl}/user/is-in-role?userId={userId}&role={role}";
 
         public static readonly Func<string, string> FindUserByUserName =
-            (userName) => $"{V1BaseUrl}/user/find-user-by-user-name?userName={userName}";
+            (userName) => $"{V1BaseUrl}/user/find-by-user-name?userName={userName}";
     }
 }
