@@ -20,22 +20,16 @@ public class ServiceResult<T>
 public class ServiceResult<TSuccess, TError>
 {
     public bool IsSuccess { get; }
-
-    public TSuccess? SuccessDta { get; }
-
+    public TSuccess? Data { get; }
     public TError? Error { get; }
-    public string? Message { get; }
 
-    private ServiceResult(bool isSuccess, TSuccess? success, TError? error, string? message)
+    private ServiceResult(bool success, TSuccess? data, TError? error)
     {
-        IsSuccess = isSuccess;
-        SuccessDta = success;
+        IsSuccess = success;
+        Data = data;
         Error = error;
-        Message = message;
     }
 
-    public static ServiceResult<TSuccess, TError> Success(TSuccess data) => new(true, data, default, "");
-
-    public static ServiceResult<TSuccess, TError> Fail(string message, TError? error) =>
-        new(false, default, error, message);
+    public static ServiceResult<TSuccess, TError> Success(TSuccess data) => new(true, data, default);
+    public static ServiceResult<TSuccess, TError> Fail(TError error) => new(false, default, error);
 }

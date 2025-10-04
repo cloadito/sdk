@@ -56,4 +56,34 @@ public class RestClient(IHttpClientFactory factory, string clientName, FluentRes
             return new ApiResult<T>(default, false, errorMessage ?? $"HTTP {response.StatusCode}", response.StatusCode);
         }
     }
+
+    public async Task<ApiModel<TSuccess, TError>> SendAsync<TSuccess, TError>(
+        string url,
+        HttpMethod method,
+        object? body = null,
+        CancellationToken cancellationToken = default)
+    {
+        var client = factory.CreateClient(clientName);
+        var request = new HttpRequestMessage(method, url);
+
+        if (body != null)
+        {
+            var json = JsonConvert.SerializeObject(body);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+        }
+
+        var response = await client.SendAsync(request, cancellationToken);
+        var content = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            TSuccess? successData = JsonConvert.DeserializeObject<TSuccess>(content);
+            return ApiModel<TSuccess, TError>.FromSuccess(successData!, response.StatusCode);
+        }
+        else
+        {
+            TError? errorData = JsonConvert.DeserializeObject<TError>(content);
+            return ApiModel<TSuccess, TError>.FromError(errorData!, response.StatusCode);
+        }
+    }
 }

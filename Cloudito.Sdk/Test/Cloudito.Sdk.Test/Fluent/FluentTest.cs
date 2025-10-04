@@ -56,14 +56,50 @@ public class FluentTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
             .WithBody(new
             {
                 UserName = "admin",
-                Password = "123456",
+                Password = "123456A",
             })
             .WithMethod(HttpMethod.Post)
-            .OnSuccess((resStr) => JsonConvert.DeserializeObject(resStr))
-            .OnError((status, res) => status == HttpStatusCode.NotFound ? "موردی یافت نشد" : $" {status} {res}")
-            .ExecuteAsync();
+            .ExecuteAsync<ApiSuccessResponse, ApiErrorResponse>();
 
         outputHelper.WriteLine("Result: " + JsonConvert.SerializeObject(result));
         Assert.True(result is not null);
     }
 }
+
+public record ApiErrorResponse(
+    [property: JsonProperty("data")] ErrorData Data,
+    [property: JsonProperty("isSuccess")] bool IsSuccess,
+    [property: JsonProperty("message")] string Message
+);
+
+public record ErrorData(
+    [property: JsonProperty("errorsList")] List<ErrorItem> ErrorsList
+);
+
+public record ErrorItem(
+    [property: JsonProperty("errorCode")] int ErrorCode,
+    [property: JsonProperty("errorDescription")]
+    string ErrorDescription,
+    [property: JsonProperty("referenceName")]
+    string? ReferenceName,
+    [property: JsonProperty("originalValue")]
+    string? OriginalValue,
+    [property: JsonProperty("extraData")] string? ExtraData
+);
+
+public record ApiSuccessResponse(
+    [property: JsonProperty("data")] AuthData Data,
+    [property: JsonProperty("isSuccess")] bool IsSuccess,
+    [property: JsonProperty("message")] string Message
+);
+
+public record AuthData(
+    [property: JsonProperty("token")] string Token,
+    [property: JsonProperty("refreshToken")]
+    string RefreshToken,
+    [property: JsonProperty("refreshTokenExpiration")]
+    int RefreshTokenExpiration,
+    [property: JsonProperty("tokenExpiration")]
+    int TokenExpiration,
+    [property: JsonProperty("shopUser")] object? ShopUser
+);

@@ -1,6 +1,7 @@
 using System.Net;
 using Cloudito.Sdk.Base.Fluent.Model;
 using Cloudito.Sdk.Base.Fluent.Rest;
+using Newtonsoft.Json;
 
 namespace Cloudito.Sdk.Base.Fluent.Builder;
 
@@ -13,10 +14,13 @@ public interface IFluentRequestBuilder
     IFluentRequestBuilder WithResponseBuilder<T>(Func<string, T> builder);
     IFluentRequestBuilder OnSuccess<T>(Func<string, T> successBuilder);
     IFluentRequestBuilder OnError(Func<HttpStatusCode, string, string> errorBuilder);
+    IFluentRequestBuilder OnError<TError>(Func<string, TError> builder);
 
     Task<ServiceResult<T>> ExecuteAsync<T>(CancellationToken cancellationToken = default);
 
     Task<ServiceResult<object>> ExecuteAsync(CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<TSuccess, TError>> ExecuteAsync<TSuccess, TError>(CancellationToken cancellationToken = default);
 }
 
 public class FluentRequestBuilder(IRest rest, string url) : IFluentRequestBuilder
@@ -28,6 +32,7 @@ public class FluentRequestBuilder(IRest rest, string url) : IFluentRequestBuilde
     private Func<string, object?>? _responseBuilder;
     private Func<string, object?>? _successBuilder;
     private Func<HttpStatusCode, string, string>? _errorBuilder;
+    private Func<string, object>? _terrorBuilder;
 
     public IFluentRequestBuilder WithMethod(HttpMethod method)
     {
@@ -58,6 +63,13 @@ public class FluentRequestBuilder(IRest rest, string url) : IFluentRequestBuilde
         _responseBuilder = json => builder(json);
         return this;
     }
+
+    public IFluentRequestBuilder OnError<TError>(Func<string, TError> builder)
+    {
+        _terrorBuilder = s => builder(s);
+        return this;
+    }
+
 
     public IFluentRequestBuilder OnSuccess<T>(Func<string, T> successBuilder)
     {
@@ -108,5 +120,26 @@ public class FluentRequestBuilder(IRest rest, string url) : IFluentRequestBuilde
             return ServiceResult<object>.Fail(result.Error ?? "Request failed");
         var err = _errorBuilder(result.StatusCode, result.Error ?? "Unknown error");
         return ServiceResult<object>.Fail(err);
+    }
+
+    public async Task<ServiceResult<TSuccess, TError>> ExecuteAsync<TSuccess, TError>(
+        CancellationToken cancellationToken = default)
+    {
+        var result = await rest.SendAsync<TSuccess, TError>(url, _method, _body, cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            var data = _successBuilder != null
+                ? (TSuccess)_successBuilder(JsonConvert.SerializeObject(result.Success))
+                : result.Success!;
+            return ServiceResult<TSuccess, TError>.Success(data);
+        }
+        else
+        {
+            var error = _terrorBuilder != null
+                ? (TError)_terrorBuilder(JsonConvert.SerializeObject(result.Error))
+                : result.Error!;
+            return ServiceResult<TSuccess, TError>.Fail(error);
+        }
     }
 }
