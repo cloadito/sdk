@@ -1,17 +1,18 @@
 using System.Text;
+using System.Text.Json;
 using Cloudito.Sdk.Base.Fluent.Config;
 using Cloudito.Sdk.Base.Fluent.Model;
 using Newtonsoft.Json;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Cloudito.Sdk.Base.Fluent.Rest;
 
 public class RestClient(IHttpClientFactory factory, string clientName, FluentRestConfig? config = null)
     : IRest
 {
-    private readonly IHttpClientFactory _factory = factory;
     private readonly FluentRestConfig _config = config ?? new FluentRestConfig();
 
-    private HttpClient Client => _factory.CreateClient(clientName);
+    private HttpClient Client => factory.CreateClient(clientName);
 
     public async Task<ApiResult<T>> SendAsync<T>(string url, HttpMethod method, object? body = null,
         CancellationToken token = default)
@@ -27,12 +28,32 @@ public class RestClient(IHttpClientFactory factory, string clientName, FluentRes
         var response = await Client.SendAsync(request, token);
         var responseContent = await response.Content.ReadAsStringAsync(token);
 
-        if (!response.IsSuccessStatusCode)
-            return new ApiResult<T>(default, false, responseContent);
+        if (response.IsSuccessStatusCode)
+        {
+            var data = _config.ResponseBuilder?.Invoke(response, responseContent)
+                       ?? JsonConvert.DeserializeObject<T>(responseContent);
 
-        var data = _config.ResponseBuilder?.Invoke(response, responseContent)
-                   ?? JsonConvert.DeserializeObject<T>(responseContent);
+            return new ApiResult<T>((T?)data, true, null, response.StatusCode);
+        }
+        else
+        {
+            // Try to parse the error message from JSON if possible
+            string? errorMessage = responseContent;
 
-        return new ApiResult<T>((T?)data, true);
+            try
+            {
+                using var doc = JsonDocument.Parse(responseContent);
+                if (doc.RootElement.TryGetProperty("message", out var msg))
+                    errorMessage = msg.GetString();
+                else if (doc.RootElement.TryGetProperty("error", out var err))
+                    errorMessage = err.GetString();
+            }
+            catch
+            {
+                // Not JSON or no "message"/"error" property, fallback to raw content
+            }
+
+            return new ApiResult<T>(default, false, errorMessage ?? $"HTTP {response.StatusCode}", response.StatusCode);
+        }
     }
 }

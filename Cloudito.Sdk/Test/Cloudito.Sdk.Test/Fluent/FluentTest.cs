@@ -1,3 +1,4 @@
+using System.Net;
 using Cloudito.Sdk.Base.Fluent.Builder;
 using Cloudito.Sdk.Base.Fluent.Provider;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,8 +43,27 @@ public class FluentTest(TestFixture fixture, ITestOutputHelper outputHelper) : I
             })
             .WithMethod(HttpMethod.Post)
             .ExecuteAsync<object>();
-        
+
         outputHelper.WriteLine("Result: " + JsonConvert.SerializeObject(result));
         Assert.True(result != null);
+    }
+
+    [Fact]
+    public async Task BuildersTest()
+    {
+        var result = await _clientProvider.GetService("auth2")
+            .From("api/authentication/v1.0/login")
+            .WithBody(new
+            {
+                UserName = "admin",
+                Password = "123456",
+            })
+            .WithMethod(HttpMethod.Post)
+            .OnSuccess((resStr) => JsonConvert.DeserializeObject(resStr))
+            .OnError((status, res) => status == HttpStatusCode.NotFound ? "موردی یافت نشد" : $" {status} {res}")
+            .ExecuteAsync();
+
+        outputHelper.WriteLine("Result: " + JsonConvert.SerializeObject(result));
+        Assert.True(result is not null);
     }
 }
