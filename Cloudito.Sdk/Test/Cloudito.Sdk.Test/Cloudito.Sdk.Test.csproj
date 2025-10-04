@@ -1,21 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<IsPackable>false</IsPackable>
-		<IsTestProject>true</IsTestProject>
-	</PropertyGroup>
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection"  />
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" />
-	  <PackageReference Include="xunit"  />
-	  <PackageReference Include="xunit.runner.visualstudio" >
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	    <PrivateAssets>all</PrivateAssets>
-	  </PackageReference>
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\Src\Cloudito.Sdk\Cloudito.Sdk.csproj" />
-	  <ProjectReference Include="..\..\Src\Cloudito.Sdk\Cloudito.Sdk.Base.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Src\Cloudito.Sdk.Base.Fluent\Cloudito.Sdk.Base.Fluent.csproj"/>
+        <ProjectReference Include="..\..\Src\Cloudito.Sdk.Base\Cloudito.Sdk.Base.csproj"/>
+        <ProjectReference Include="..\..\Src\Cloudito.Sdk\Cloudito.Sdk.csproj"/>
+    </ItemGroup>
 </Project>

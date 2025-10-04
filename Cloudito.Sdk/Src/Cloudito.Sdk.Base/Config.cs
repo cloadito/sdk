@@ -1,7 +1,6 @@
 using Cloudito.Sdk.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace Cloudito.Sdk.Base;
 
 public static class Config
