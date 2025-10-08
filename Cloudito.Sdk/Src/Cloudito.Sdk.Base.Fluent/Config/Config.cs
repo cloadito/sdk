@@ -18,16 +18,21 @@ public static class ServiceCollectionExtensions
 
 public interface IServiceCollectionFluentBuilder
 {
-    IServiceCollection AddNamedClient(string name, Action<HttpClient> configureClient, FluentRestConfig? config = null);
+    IServiceCollection AddNamedClient(string name, Action<HttpClient> configureClient, FluentRestConfig? config = null,
+        Func<HttpMessageHandler>? configureHandler = null);
 }
 
 public class ServiceCollectionFluentBuilder(IServiceCollection services) : IServiceCollectionFluentBuilder
 {
     public IServiceCollection AddNamedClient(string name, Action<HttpClient> configureClient,
-        FluentRestConfig? config = null)
+        FluentRestConfig? config = null,
+        Func<HttpMessageHandler>? configureHandler = null)
     {
-        // 1️⃣ Register the named HttpClient
-        services.AddHttpClient(name, configureClient);
+        //  Register the named HttpClient
+        var builder = services.AddHttpClient(name, configureClient);
+
+        if (configureHandler != null)
+            builder.ConfigurePrimaryHttpMessageHandler(configureHandler);
 
         // 2️⃣ Register the RestClient as a singleton
         services.AddSingleton<NamedRestClient>(sp =>
@@ -37,7 +42,7 @@ public class ServiceCollectionFluentBuilder(IServiceCollection services) : IServ
 
             return new NamedRestClient(name, client);
         });
-        
+
         services.AddSingleton<IBaseService>(sp =>
         {
             var factory = sp.GetRequiredService<IHttpClientFactory>();
