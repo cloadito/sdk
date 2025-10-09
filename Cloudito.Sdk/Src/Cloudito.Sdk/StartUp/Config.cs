@@ -1,5 +1,4 @@
 ﻿using Cloudito.Sdk.Finders;
-using Cloudito.Sdk.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cloudito.Sdk;
@@ -47,6 +46,10 @@ public static class ClouditoSdkConfig
         // Shop
         services.AddScoped<IShop, ShopService>();
         services.AddScoped<IProduct, ProductService>();
+        services.AddScoped<ICategory, CategoryService>();
+        services.AddScoped<IShopStatus, ShopStatusService>();
+        services.AddScoped<IShopType, ShopTypeService>();
+        services.AddScoped<ITag, TagService>();
 
         // Notif
         services.AddScoped<INotifGroup, NotifGroupService>();

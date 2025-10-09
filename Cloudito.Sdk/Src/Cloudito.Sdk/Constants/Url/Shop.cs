@@ -56,16 +56,51 @@ internal partial class UrlsConst
         public class Category
         {
             public const string AddCategoryToShop = $"{V1BaseUrl}/category/add-category-to-shop";
-            
-            public static readonly Func<Guid,string> Delete = (id)=> $"{V1BaseUrl}/category/delete?id={id}";
-            
+
+            public static readonly Func<Guid, string> Delete = (id) => $"{V1BaseUrl}/category/delete?id={id}";
+
             public const string GetList = $"{V1BaseUrl}/category/get-list";
-            
-            public static readonly Func<Guid,string> GetShopCategories = (shopId)=> $"{V1BaseUrl}/category/get-shop-categories?shopId={shopId}";
-            
-            public static readonly Func<Guid,Guid,string> DeleteShopCategory = (shopId,categoryId)=> $"{V1BaseUrl}/category/delete-shop-category?shopId={shopId}&categoryId={categoryId}";
+
+            public static readonly Func<Guid, string> GetShopCategories =
+                (shopId) => $"{V1BaseUrl}/category/get-shop-categories?shopId={shopId}";
+
+            public static readonly Func<Guid, Guid, string> DeleteShopCategory = (shopId, categoryId) =>
+                $"{V1BaseUrl}/category/delete-shop-category?shopId={shopId}&categoryId={categoryId}";
 
             public const string Upsert = $"{V1BaseUrl}/category/upsert";
+        }
+
+        public class Status
+        {
+            public const string GetList = $"{V1BaseUrl}/shop-status/get-list";
+
+            public static readonly Func<string, string> GetByName = (name) =>
+                $"{V1BaseUrl}/shop-status/get-by-name?name={name}";
+
+            public static readonly Func<string, string> GetByCode = (code) =>
+                $"{V1BaseUrl}/shop-status/get-by-code?code={code}";
+        }
+
+        public class Type
+        {
+            public const string GetList = $"{V1BaseUrl}/shop-type/get-list";
+
+            public static readonly Func<string, string> GetByName = (name) =>
+                $"{V1BaseUrl}/shop-type/get-by-name?name={name}";
+
+            public static readonly Func<string, string> GetByCode = (code) =>
+                $"{V1BaseUrl}/shop-type/get-by-code?code={code}";
+        }
+
+        public class Tag
+        {
+            public const string GetList = $"{V1BaseUrl}/tag/get-list";
+
+            public static readonly Func<string, string> GetByName = (name) =>
+                $"{V1BaseUrl}/tag/get-by-name?name={name}";
+
+            public static readonly Func<string, string> GetByCode = (code) =>
+                $"{V1BaseUrl}/tag/get-by-code?code={code}";
         }
     }
 }
