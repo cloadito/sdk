@@ -46,5 +46,7 @@ public record UpsertProduct(
     IEnumerable<UpsertProductProperties> Properties,
     IEnumerable<Guid> Categories,
     IEnumerable<Guid> Shops);
-    
-    public record Tag(Guid Id,Guid AppId,string Name,string Title,string Code);
+
+public record Tag(Guid Id, Guid AppId, string Name, string Title, string Code);
+
+public record AddAllWithTagRequest(Guid TagId, Guid ShopId);

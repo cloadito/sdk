@@ -47,4 +47,9 @@ internal class ProductService(IBaseService baseService) : IProduct
         CancellationToken cancellationToken = default)
         => baseService.CallServiceAsync<Product>(UrlsConst.Shop.Product.AddProductToShop, request, HttpMethod.Post,
             cancellationToken);
+
+    public Task<ServiceResult<int>> AddAllToShopWithTagAsync(AddAllWithTagRequest request,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<int>(UrlsConst.Shop.Product.AddAllWithTag, request, HttpMethod.Post,
+            cancellationToken);
 }

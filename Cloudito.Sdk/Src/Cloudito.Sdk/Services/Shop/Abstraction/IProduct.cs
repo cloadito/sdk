@@ -26,4 +26,10 @@ public interface IProduct
 
     Task<ServiceResult<Product>>
         AddToShopAsync(AddProductToShop request, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Add all products that has tag to shop
+    /// </summary>
+    /// <returns>Count of items that add to shop</returns>
+    Task<ServiceResult<int>> AddAllToShopWithTagAsync(AddAllWithTagRequest request,CancellationToken cancellationToken = default);
 }

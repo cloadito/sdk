@@ -28,6 +28,8 @@ internal partial class UrlsConst
         {
             public const string AddProductToShop = $"{V1BaseUrl}/product/add-product-to-shop";
 
+            public const string AddAllWithTag = $"{V1BaseUrl}/product/add-all-with-tag";
+
             public static readonly Func<Guid, string> Delete = (id) => $"{V1BaseUrl}/product/delete?id={id}";
 
             public static readonly Func<Guid, string> DeleteProperty =
