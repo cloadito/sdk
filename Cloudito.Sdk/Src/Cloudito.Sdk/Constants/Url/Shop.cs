@@ -12,7 +12,7 @@ internal partial class UrlsConst
             $"{V1BaseUrl}/shop/get-list?page={page}&count={count}{(string.IsNullOrEmpty(q) ? "" : $"&q={q}")}";
 
         public static readonly Func<Guid, int, int, string> GetUserShops = (id, page, count) =>
-            $"{V1BaseUrl}/shop/get-user-shops?id={id}&page={page}&count={count}";
+            $"{V1BaseUrl}/shop/get-user-shops?userId={id}&page={page}&count={count}";
 
         /// <summary>
         /// Remove admin first parameter is shop id and second is user id
