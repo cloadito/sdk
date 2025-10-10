@@ -42,7 +42,7 @@ public record UpsertProduct(
     string? ShortDescription,
     string? Description,
     decimal Amount,
-    ShopImage? Image,
+    IEnumerable<ShopImage> Images,
     IEnumerable<UpsertProductProperties> Properties,
     IEnumerable<Guid> Categories,
     IEnumerable<Guid> Shops);
