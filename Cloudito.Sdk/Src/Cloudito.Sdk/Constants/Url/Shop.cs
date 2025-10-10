@@ -57,19 +57,19 @@ internal partial class UrlsConst
 
         public class Category
         {
-            public const string AddCategoryToShop = $"{V1BaseUrl}/category/add-category-to-shop";
+            public const string AddCategoryToShop = $"{V1BaseUrl}/shop/category/add-category-to-shop";
 
-            public static readonly Func<Guid, string> Delete = (id) => $"{V1BaseUrl}/category/delete?id={id}";
+            public static readonly Func<Guid, string> Delete = (id) => $"{V1BaseUrl}/shop/category/delete?id={id}";
 
-            public const string GetList = $"{V1BaseUrl}/category/get-list";
+            public const string GetList = $"{V1BaseUrl}/shop/category/get-list";
 
             public static readonly Func<Guid, string> GetShopCategories =
-                (shopId) => $"{V1BaseUrl}/category/get-shop-categories?shopId={shopId}";
+                (shopId) => $"{V1BaseUrl}/shop/category/get-shop-categories?shopId={shopId}";
 
             public static readonly Func<Guid, Guid, string> DeleteShopCategory = (shopId, categoryId) =>
-                $"{V1BaseUrl}/category/delete-shop-category?shopId={shopId}&categoryId={categoryId}";
+                $"{V1BaseUrl}/shop/category/delete-shop-category?shopId={shopId}&categoryId={categoryId}";
 
-            public const string Upsert = $"{V1BaseUrl}/category/upsert";
+            public const string Upsert = $"{V1BaseUrl}/shop/category/upsert";
         }
 
         public class Status
