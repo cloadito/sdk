@@ -97,6 +97,17 @@ internal partial class UrlsConst
                 $"{V1BaseUrl}/shop-type/get-by-code?code={code}";
         }
 
+        public class ProductType
+        {
+            public const string GetList = $"{V1BaseUrl}/product-type/get-list";
+
+            public static readonly Func<string, string> GetByName = (name) =>
+                $"{V1BaseUrl}/product-type/get-by-name?name={name}";
+
+            public static readonly Func<string, string> GetByCode = (code) =>
+                $"{V1BaseUrl}/product-type/get-by-code?code={code}";
+        }
+
         public class Tag
         {
             public const string GetList = $"{V1BaseUrl}/tag/get-list";

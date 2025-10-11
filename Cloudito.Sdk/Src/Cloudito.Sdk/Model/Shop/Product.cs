@@ -37,6 +37,7 @@ public record ProductDetails(
 
 public record UpsertProduct(
     Guid? Id,
+    Guid TypeId,
     string Name,
     string Title,
     string? ShortDescription,
@@ -50,3 +51,5 @@ public record UpsertProduct(
 public record Tag(Guid Id, Guid AppId, string Name, string Title, string Code);
 
 public record AddAllWithTagRequest(Guid TagId, Guid ShopId);
+
+public record ProductType(Guid Id,Guid AppId,string Name,string Title,string Code);
