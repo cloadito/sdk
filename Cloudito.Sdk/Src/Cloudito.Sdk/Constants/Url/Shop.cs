@@ -24,6 +24,9 @@ internal partial class UrlsConst
 
         public const string UpsertAdmin = $"{V1BaseUrl}/shop/upsert-admin";
 
+        public static readonly Func<Guid, Guid, string> IsAdmin = (shopId, userId) =>
+            $"{V1BaseUrl}/shop/is-admin?shopId={shopId}&userId={userId}";
+
         public class Product
         {
             public const string AddProductToShop = $"{V1BaseUrl}/product/add-product-to-shop";

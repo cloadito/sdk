@@ -33,4 +33,9 @@ internal class ShopService(IBaseService baseService) : IShop
         CancellationToken cancellationToken = default)
         => baseService.CallServiceAsync<ShopAdmin>(UrlsConst.Shop.UpsertAdmin, shopAdmin, HttpMethod.Post,
             cancellationToken);
+
+    public Task<ServiceResult<bool>> IsAdminAsync(Guid shopId, Guid userId,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<bool>(UrlsConst.Shop.IsAdmin(shopId, userId), null, HttpMethod.Get,
+            cancellationToken);
 }

@@ -20,4 +20,6 @@ public interface IShop
 
     Task<ServiceResult<ShopAdmin>> UpsertShopAdminAsync(UpsertShopAdmin shopAdmin,
         CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<bool>> IsAdminAsync(Guid shopId, Guid userId, CancellationToken cancellationToken = default);
 }
