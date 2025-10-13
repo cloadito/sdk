@@ -31,9 +31,11 @@ public record ProductDetails(
     string? Description,
     ShopImage? Image,
     int SellersCount,
-    decimal Amount,
+    IEnumerable<ProductDetailsAmount> Amounts,
     IEnumerable<ProductProperties> Properties,
     IEnumerable<ProductCategory> Categories);
+
+public record ProductDetailsAmount(Guid ShopId,IEnumerable<NamedAmount> Amounts);
 
 public record UpsertProduct(
     Guid? Id,
@@ -42,7 +44,7 @@ public record UpsertProduct(
     string Title,
     string? ShortDescription,
     string? Description,
-    decimal Amount,
+    IEnumerable<NamedAmount> Amounts,
     IEnumerable<ShopImage> Images,
     IEnumerable<UpsertProductProperties> Properties,
     IEnumerable<Guid> Categories,
