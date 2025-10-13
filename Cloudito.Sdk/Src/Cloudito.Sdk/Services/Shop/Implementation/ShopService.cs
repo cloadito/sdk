@@ -38,4 +38,14 @@ internal class ShopService(IBaseService baseService) : IShop
         CancellationToken cancellationToken = default)
         => baseService.CallServiceAsync<bool>(UrlsConst.Shop.IsAdmin(shopId, userId), null, HttpMethod.Get,
             cancellationToken);
+
+    public Task<ServiceResult<ShopSettings>> GetSettingsAsync(Guid shopId,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<ShopSettings>(UrlsConst.Shop.GetSettings(shopId), null, HttpMethod.Get,
+            cancellationToken);
+
+    public Task<ServiceResult<ShopSettings>> UpdateSettingsAsync(ShopSettings settings,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<ShopSettings>(UrlsConst.Shop.UpdateSettings, settings, HttpMethod.Post,
+            cancellationToken);
 }

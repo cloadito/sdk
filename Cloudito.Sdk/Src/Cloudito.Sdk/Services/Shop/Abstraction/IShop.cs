@@ -22,4 +22,8 @@ public interface IShop
         CancellationToken cancellationToken = default);
 
     Task<ServiceResult<bool>> IsAdminAsync(Guid shopId, Guid userId, CancellationToken cancellationToken = default);
+    
+    Task<ServiceResult<ShopSettings>> GetSettingsAsync(Guid shopId, CancellationToken cancellationToken = default);
+    
+    Task<ServiceResult<ShopSettings>> UpdateSettingsAsync(ShopSettings settings, CancellationToken cancellationToken = default);
 }
