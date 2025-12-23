@@ -2,7 +2,7 @@ namespace Cloudito.Sdk.Services;
 
 public interface IShop
 {
-    Task<ServiceResult<Pagination<Shop>>> GetListAsync(int page, int count, string? q,
+    Task<ServiceResult<Pagination<Shop>>> GetListAsync(GetShopsRequest request,
         CancellationToken cancellationToken = default);
 
     Task<ServiceResult<Pagination<Shop>>> GetUserShopsAsync(Guid userId, int page, int count,

@@ -8,8 +8,7 @@ internal partial class UrlsConst
 
         public static readonly Func<Guid, string> GetAdmins = (id) => $"{V1BaseUrl}/shop/get-admins?id={id}";
 
-        public static readonly Func<int, int, string?, string> GetShopsList = (page, count, q) =>
-            $"{V1BaseUrl}/shop/get-list?page={page}&count={count}{(string.IsNullOrEmpty(q) ? "" : $"&q={q}")}";
+        public const string GetShopsList = $"{V1BaseUrl}/shop/get-list";
 
         public static readonly Func<Guid, int, int, string> GetUserShops = (id, page, count) =>
             $"{V1BaseUrl}/shop/get-user-shops?userId={id}&page={page}&count={count}";
@@ -30,9 +29,9 @@ internal partial class UrlsConst
         public static readonly Func<Guid, string> GetSettings = (shopId) => $"{V1BaseUrl}/get-settings?shopId={shopId}";
 
         public const string UpdateSettings = $"{V1BaseUrl}/update-settings";
-        
+
         public const string Find = $"{V1BaseUrl}/find";
-        
+
         public const string SetInfo = $"{V1BaseUrl}/set-info";
 
         public class Product

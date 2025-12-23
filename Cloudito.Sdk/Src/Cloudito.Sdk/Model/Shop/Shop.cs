@@ -34,3 +34,29 @@ public record SetShopInfoRequest(
     IEnumerable<ClouditoMetadata> Metadata,
     ShopInfo? Info,
     ShopAddress.Address? Address);
+
+public record GetShopsRequest(
+    Guid? StatusId,
+    Guid? TypeId,
+    string? Q,
+    AddressFilter? AddressFilter,
+    int Page,
+    int Count);
+    
+public record AddressFilter(
+    Guid? ProvinceId,
+    Guid? CityId,
+    double? Lat,
+    double? Lng,
+    double? RadiusMeters,
+    GeoFilterMode GeoMode,
+    string? Plate,
+    string? Q);
+
+public enum GeoFilterMode
+{
+    None = 0,
+    Nearest = 1,
+    Radius = 2,
+    Rectangle = 3
+}

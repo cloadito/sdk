@@ -2,10 +2,10 @@ namespace Cloudito.Sdk.Services;
 
 internal class ShopService(IBaseService baseService) : IShop
 {
-    public Task<ServiceResult<Pagination<Shop>>> GetListAsync(int page, int count, string? q,
+    public Task<ServiceResult<Pagination<Shop>>> GetListAsync(GetShopsRequest request,
         CancellationToken cancellationToken = default)
-        => baseService.CallServiceAsync<Pagination<Shop>>(UrlsConst.Shop.GetShopsList(page, count, q), null,
-            HttpMethod.Get, cancellationToken);
+        => baseService.CallServiceAsync<Pagination<Shop>>(UrlsConst.Shop.GetShopsList, request,
+            HttpMethod.Post, cancellationToken);
 
     public Task<ServiceResult<Pagination<Shop>>> GetUserShopsAsync(Guid userId, int page, int count,
         CancellationToken cancellationToken = default)
