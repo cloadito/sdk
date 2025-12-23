@@ -30,6 +30,10 @@ internal partial class UrlsConst
         public static readonly Func<Guid, string> GetSettings = (shopId) => $"{V1BaseUrl}/get-settings?shopId={shopId}";
 
         public const string UpdateSettings = $"{V1BaseUrl}/update-settings";
+        
+        public const string Find = $"{V1BaseUrl}/find";
+        
+        public const string SetInfo = $"{V1BaseUrl}/set-info";
 
         public class Product
         {

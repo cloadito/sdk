@@ -48,4 +48,13 @@ internal class ShopService(IBaseService baseService) : IShop
         CancellationToken cancellationToken = default)
         => baseService.CallServiceAsync<ShopSettings>(UrlsConst.Shop.UpdateSettings, settings, HttpMethod.Post,
             cancellationToken);
+
+    public Task<ServiceResult<ShopDetails>> FindAsync(FindShopRequest request,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<ShopDetails>(UrlsConst.Shop.Find, request, HttpMethod.Post, cancellationToken);
+
+    public Task<ServiceResult<ShopDetails>> SetInfoAsync(SetShopInfoRequest request,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<ShopDetails>(UrlsConst.Shop.SetInfo, request, HttpMethod.Post,
+            cancellationToken);
 }
