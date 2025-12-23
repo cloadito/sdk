@@ -26,13 +26,14 @@ internal partial class UrlsConst
         public static readonly Func<Guid, Guid, string> IsAdmin = (shopId, userId) =>
             $"{V1BaseUrl}/shop/is-admin?shopId={shopId}&userId={userId}";
 
-        public static readonly Func<Guid, string> GetSettings = (shopId) => $"{V1BaseUrl}/get-settings?shopId={shopId}";
+        public static readonly Func<Guid, string> GetSettings = (shopId) =>
+            $"{V1BaseUrl}/shop/get-settings?shopId={shopId}";
 
-        public const string UpdateSettings = $"{V1BaseUrl}/update-settings";
+        public const string UpdateSettings = $"{V1BaseUrl}/shop/update-settings";
 
-        public const string Find = $"{V1BaseUrl}/find";
+        public const string Find = $"{V1BaseUrl}/shop/find";
 
-        public const string SetInfo = $"{V1BaseUrl}/set-info";
+        public const string SetInfo = $"{V1BaseUrl}/shop/set-info";
 
         public class Product
         {

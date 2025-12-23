@@ -1,9 +1,4 @@
-﻿using Cloudito.Sdk.Services;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace Cloudito.Sdk.Test;
+﻿namespace Cloudito.Sdk.Test;
 
 public class ApplicationTest(TestFixture fixture, ITestOutputHelper outputHelper) : IClassFixture<TestFixture>
 {

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
+using IBaseService = Cloudito.Sdk.Base.Fluent.Builder.IBaseService;
 
 namespace Cloudito.Sdk.Test.Fluent;
 
