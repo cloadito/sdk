@@ -1,6 +1,12 @@
 namespace Cloudito.Sdk;
 
-public record Shop(Guid Id, Guid AppId, string Name, ShopStatus Status);
+public record Shop(
+    Guid Id,
+    Guid AppId,
+    string Name,
+    ShopStatus Status,
+    ShopType Type,
+    IEnumerable<ClouditoMetadata> Metadata);
 
 public record ShopStatus(Guid Id, Guid AppId, string Name, string Title, string Code);
 
@@ -42,7 +48,7 @@ public record GetShopsRequest(
     AddressFilter? AddressFilter,
     int Page,
     int Count);
-    
+
 public record AddressFilter(
     Guid? ProvinceId,
     Guid? CityId,
