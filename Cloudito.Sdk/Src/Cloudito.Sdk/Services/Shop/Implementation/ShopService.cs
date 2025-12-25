@@ -57,4 +57,36 @@ internal class ShopService(IBaseService baseService) : IShop
         CancellationToken cancellationToken = default)
         => baseService.CallServiceAsync<ShopDetails>(UrlsConst.Shop.SetInfo, request, HttpMethod.Post,
             cancellationToken);
+
+    public Task<ServiceResult<IEnumerable<WeeklyWorkTime>>> GetWeeklyWorkTimeAsync(Guid shopId,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<IEnumerable<WeeklyWorkTime>>(UrlsConst.Shop.GetWeeklyWorkTime(shopId), null,
+            HttpMethod.Get, cancellationToken);
+
+    public Task<ServiceResult<IEnumerable<WorkTimeException>>> GetWorkTimeExceptionsAsync(Guid shopId,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<IEnumerable<WorkTimeException>>(UrlsConst.Shop.GetWorkTimeException(shopId),
+            null,
+            HttpMethod.Get, cancellationToken);
+
+    public Task<ServiceResult<WeeklyWorkTime>> UpsertWeeklyWorkTimeAsync(UpsertWeeklyWorkTime request,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<WeeklyWorkTime>(UrlsConst.Shop.UpsertWeeklyWorkTime, request, HttpMethod.Post,
+            cancellationToken);
+
+    public Task<ServiceResult<WorkTimeException>> UpsertWorkTimeExceptionAsync(UpsertWorkTimeException request,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync<WorkTimeException>(UrlsConst.Shop.UpsertWorkTimeException, request,
+            HttpMethod.Post,
+            cancellationToken);
+
+    public Task<ServiceResult<object>> DeleteWeeklyWorkTimeAsync(Guid shopId, Guid id,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync(UrlsConst.Shop.DeleteWeeklyWorkTime(shopId, id), null, HttpMethod.Delete,
+            cancellationToken);
+
+    public Task<ServiceResult<object>> DeleteWorkTimeExceptionAsync(Guid shopId, Guid id,
+        CancellationToken cancellationToken = default)
+        => baseService.CallServiceAsync(UrlsConst.Shop.DeleteWorkTimeException(shopId, id), null, HttpMethod.Delete,
+            cancellationToken);
 }

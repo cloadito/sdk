@@ -32,4 +32,22 @@ public interface IShop
 
     Task<ServiceResult<ShopDetails>> SetInfoAsync(SetShopInfoRequest request,
         CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<IEnumerable<WeeklyWorkTime>>> GetWeeklyWorkTimeAsync(Guid shopId,
+        CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<IEnumerable<WorkTimeException>>> GetWorkTimeExceptionsAsync(Guid shopId,
+        CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<WeeklyWorkTime>> UpsertWeeklyWorkTimeAsync(UpsertWeeklyWorkTime request,
+        CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<WorkTimeException>> UpsertWorkTimeExceptionAsync(UpsertWorkTimeException request,
+        CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<object>> DeleteWeeklyWorkTimeAsync(Guid shopId, Guid id,
+        CancellationToken cancellationToken = default);
+
+    Task<ServiceResult<object>> DeleteWorkTimeExceptionAsync(Guid shopId, Guid id,
+        CancellationToken cancellationToken = default);
 }

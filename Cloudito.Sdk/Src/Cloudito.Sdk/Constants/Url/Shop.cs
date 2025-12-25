@@ -35,6 +35,22 @@ internal partial class UrlsConst
 
         public const string SetInfo = $"{V1BaseUrl}/shop/set-info";
 
+        public static readonly Func<Guid, Guid, string> DeleteWeeklyWorkTime = (shopId, id) =>
+            $"{V1BaseUrl}/shop/delete-weekly-work-time?shopId={shopId}&id={id}";
+
+        public static readonly Func<Guid, Guid, string> DeleteWorkTimeException = (shopId, id) =>
+            $"{V1BaseUrl}/shop/delete-work-time-exception?shopId={shopId}&id={id}";
+
+        public static readonly Func<Guid, string> GetWeeklyWorkTime = (shopId) =>
+            $"{V1BaseUrl}/shop/get-weekly-work-time?shopId={shopId}";
+
+        public static readonly Func<Guid, string> GetWorkTimeException = (shopId) =>
+            $"{V1BaseUrl}/shop/get-work-time-exceptions?shopId={shopId}";
+
+        public const string UpsertWeeklyWorkTime = $"{V1BaseUrl}/shop/upsert-weekly-work-time";
+
+        public const string UpsertWorkTimeException = $"{V1BaseUrl}/shop/upsert-work-time-exception";
+
         public class Product
         {
             public const string AddProductToShop = $"{V1BaseUrl}/product/add-product-to-shop";
