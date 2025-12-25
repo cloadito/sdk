@@ -26,7 +26,9 @@ public record ShopDetails(
     ShopType Type,
     ShopInfo? Info,
     ShopAddress.Address? Address,
-    IEnumerable<ClouditoMetadata> Metadata);
+    IEnumerable<ClouditoMetadata> Metadata,
+    IEnumerable<WeeklyWorkTime> WeeklyWorkTime,
+    IEnumerable<WorkTimeException> WorkTimeException);
 
 public record ShopInfo(
     Guid ShopId,
