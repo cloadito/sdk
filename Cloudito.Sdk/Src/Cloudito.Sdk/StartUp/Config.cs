@@ -6,7 +6,7 @@ namespace Cloudito.Sdk;
 public static class ClouditoSdkConfig
 {
     public static IServiceCollection AddCloudito(this IServiceCollection services, string apiKey,
-        string? serviceKey = null)
+        string? serviceKey = null,TimeSpan? timeOut = null)
     {
         Settings.ApiKey = apiKey;
         Settings.ServiceKey = serviceKey;
@@ -18,6 +18,9 @@ public static class ClouditoSdkConfig
             client.DefaultRequestHeaders.Add(Constants.HeaderKey, apiKey);
             if (!string.IsNullOrEmpty(serviceKey))
                 client.DefaultRequestHeaders.Add(Constants.ServiceHeaderKey, serviceKey);
+
+            if(timeOut is not null)
+                client.Timeout = (TimeSpan)timeOut;
         });
 
         services.AddServices();
